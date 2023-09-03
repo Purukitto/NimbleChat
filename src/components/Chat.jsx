@@ -1,10 +1,40 @@
-import { PlusIcon } from "@heroicons/react/24/solid";
+import { useEffect, useState } from "react";
+import supabase from "../helper/supabase";
+import { useNavigate } from "react-router-dom";
 
 export default function Chat() {
+	let navigate = useNavigate();
+	const [user, setUser] = useState(null); // User details
+
+	useEffect(() => {
+		// Redirect user to home page if not logged in or session expires
+		// Update user state if logged in
+		supabase.auth.getSession().then((res) => {
+			const session = res.data.session;
+			if (!session) navigate("/");
+			else setUser(session.user);
+		});
+	}, []);
+
+	const logoutUser = async () => {
+		await supabase.auth.signOut();
+		navigate("/");
+	};
+
 	return (
-		<div>
-			<PlusIcon className="h-4 w-4" />
-            <p>New chat</p>
-		</div>
+		<>
+			{user && (
+				<div className="flex justify-end mr-5 mt-2">
+					<div className="flex items-center space-x-2">
+						<img
+							src={user.user_metadata.avatar_url}
+							alt="avatar"
+							className="h-8 w-8 rounded-full"
+						/>
+						<button onClick={logoutUser}>Logout</button>
+					</div>
+				</div>
+			)}
+		</>
 	);
 }
