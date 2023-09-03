@@ -5,7 +5,7 @@ import Main from "./layout/Main";
 
 // Components
 import Home from "./components/Home";
-import Chat from "./components/Chat";
+import ChatScreen from "./components/ChatScreen";
 
 const router = createBrowserRouter([
 	{
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "chat",
-				element: <Chat />,
+				element: <ChatScreen />,
 			},
 		],
 	},
