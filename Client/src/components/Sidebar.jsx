@@ -1,7 +1,7 @@
 export default function Sidebar() {
 	return (
-		<div>
-			<h1>Sidebar</h1>
+		<div className="p-2 flex flex-col h-screen">
+			<div></div>
 		</div>
 	);
 }
