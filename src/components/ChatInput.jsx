@@ -1,9 +1,17 @@
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import supabase from "../helper/supabase";
 
-export default function ChatInput({ user }) {
+export default function ChatInput() {
 	const [promt, setPromt] = useState("");
+	const [user, setUser] = useState(null); // User details
+
+	useEffect(() => {
+		supabase.auth.getSession().then((res) => {
+			const session = res.data.session;
+			setUser(session.user);
+		});
+	}, []);
 
 	const sendMessage = async () => {
 		const input = promt.trim(); // Remove whitespace
