@@ -1,8 +1,11 @@
 import { ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/outline";
 import supabase from "../helper/supabase";
+import { useDispatch } from "react-redux";
 
 export default function Home() {
-	const login = async () => {
+	const dispatch = useDispatch();
+
+	const handleLogin = async () => {
 		await supabase.auth.signInWithOAuth({
 			provider: "github",
 			options: {
@@ -30,7 +33,7 @@ export default function Home() {
 			</div>
 			<div className=" mt-24">
 				<button
-					onClick={login}
+					onClick={handleLogin}
 					className="py-2 px-4 flex justify-center items-center bg-gray-600 hover:bg-gray-700 w-full font-semibold shadow-md rounded-lg"
 				>
 					<svg

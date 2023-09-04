@@ -2,35 +2,25 @@ import { useEffect, useState } from "react";
 import supabase from "../helper/supabase";
 import Message from "./Message";
 import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchChat } from "../store/chatSlice";
 
 export default function Chat() {
-	const [user, setUser] = useState(null); // User details
-	const [messages, setMessages] = useState([]); // Messages
+	const chat = useSelector((state) => state.chat);
+	const user = useSelector((state) => state.user);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
-		supabase.auth.getSession().then((res) => {
-			const session = res.data.session;
-			setUser(session.user);
-		});
-	}, []);
-
-	useEffect(() => {
-		if (user) getMessageStream();
-	}, [user]);
-
-	const getMessageStream = async () => {
-		const messages = await supabase
-			.from("chatstream")
-			.select("*")
-			.eq("chat_id", user.id)
-			.order("id", { ascending: true });
-
-		setMessages(messages.data);
-	};
+		if (user.data) dispatch(fetchChat(user.data.id));
+	}, [user.data]);
 
 	return (
 		<div className="flex-1 overflow-y-auto overflow-x-hidden">
-			{messages.length === 0 && (
+			{!chat.loading && !chat.error && chat.messages.length > 0 ? (
+				chat.messages.map((message) => (
+					<Message key={message.id} message={message} />
+				))
+			) : (
 				<>
 					<p className="mt-10 text-center text-white">
 						Enter promt below to get started!
@@ -38,9 +28,6 @@ export default function Chat() {
 					<ArrowDownCircleIcon className="h-10 w-10 mx-auto mt-5 animate-bounce text-white" />
 				</>
 			)}
-			{messages.map((message) => (
-				<Message key={message.id} message={message} />
-			))}
 		</div>
 	);
 }

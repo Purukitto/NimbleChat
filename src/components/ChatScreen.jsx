@@ -1,40 +1,36 @@
-import { useEffect, useState } from "react";
-import supabase from "../helper/supabase";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ChatInput from "./ChatInput";
 import Chat from "./Chat";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser, logoutUser } from "../store/userSlice";
 
 export default function ChatScreen() {
 	let navigate = useNavigate();
-	const [user, setUser] = useState(null); // User details
+	const dispatch = useDispatch();
+	const user = useSelector((state) => state.user);
 
 	useEffect(() => {
-		// Redirect user to home page if not logged in or session expires
-		// Update user state if logged in
-		supabase.auth.getSession().then((res) => {
-			const session = res.data.session;
-			if (!session) navigate("/");
-			else setUser(session.user);
-		});
+		dispatch(fetchUser());
 	}, []);
 
-	const logoutUser = async () => {
-		await supabase.auth.signOut();
+	const handleLogout = () => {
+		dispatch(logoutUser());
 		navigate("/");
 	};
 
 	return (
 		<>
-			{user && (
+			{user.data.user_metadata && (
 				<div className="flex flex-col h-screen overflow-hidden">
 					<div className="flex justify-end mr-5 mt-2">
 						<div className="flex items-center space-x-2">
 							<img
-								src={user.user_metadata.avatar_url}
+								src={user.data.user_metadata.avatar_url}
 								alt="avatar"
 								className="h-8 w-8 rounded-full"
 							/>
-							<button onClick={logoutUser}>Logout</button>
+							<button onClick={handleLogout}>Logout</button>
 						</div>
 					</div>
 					<Chat />
