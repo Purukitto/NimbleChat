@@ -38,8 +38,8 @@ export default async function nbxCall(input, messageCallback) {
 		const chunk = decoder.decode(value, { stream: true });
 
 		try {
-			const chunkData = JSON.parse(chunk);
-			
+			const chunkData = JSON.parse(chunk.slice(5));
+
 			if (
 				chunkData.choices &&
 				chunkData.choices.length > 0 &&
