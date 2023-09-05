@@ -46,10 +46,10 @@ export default async function nbxCall(input, messageCallback) {
 				chunkData.choices[0].delta &&
 				chunkData.choices[0].delta.content
 			) {
-				message += messageData.choices[0].delta.content;
+				message += chunkData.choices[0].delta.content;
 
 				// Call the messageCallback with the content
-				messageCallback(content);
+				messageCallback(message);
 			}
 		} catch (e) {
 			console.error(e);
