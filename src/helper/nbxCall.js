@@ -1,5 +1,5 @@
-export default function nbxCall(input) {
-	const response = fetch(
+export default async function nbxCall(input) {
+	const response = await fetch(
 		"https://cors-anywhere.herokuapp.com/https://chat.nbox.ai/api/chat/completions",
 		{
 			method: "POST",
@@ -27,4 +27,16 @@ export default function nbxCall(input) {
 	);
 
 	console.log(response);
+
+	const rs = response.body; // This is a ReadableStream
+	const reader = rs.getReader();
+	const decoder = new TextDecoder("utf-8");
+	while (true) {
+		const { value, done } = await reader.read();
+		if (done) break;
+		const chunk = decoder.decode(value, { stream: true });
+		console.log("decoded chunk : ", chunk);
+		// typewriting each chunk
+		setStreamContent((prev) => prev.concat(chunk));
+	}
 }
