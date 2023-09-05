@@ -40,7 +40,7 @@ export default async function nbxCall(input, messageCallback) {
 		// Accumulate the chunk
 		// message += JSON.parse(chunk.slice(7)).choices[0].delta.content;
 		message += chunk;
-		console.log(JSON.parse(chunk.slice(6)));
+		console.log(JSON.parse(chunk.slice(7)).choices[0].delta.content);
 
 		messageCallback(message);
 
