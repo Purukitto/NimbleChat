@@ -1,4 +1,4 @@
-export default async function nbxCall(input) {
+export default async function nbxCall(input, messageCallback) {
 	const response = await fetch(
 		"https://cors-anywhere.herokuapp.com/https://chat.nbox.ai/api/chat/completions",
 		{
@@ -31,7 +31,6 @@ export default async function nbxCall(input) {
 	const reader = rs.getReader();
 	const decoder = new TextDecoder("utf-8");
 	let accumulatedChunk = "";
-	let resultContent = null;
 
 	while (true) {
 		const { value, done } = await reader.read();
@@ -44,14 +43,24 @@ export default async function nbxCall(input) {
 
 		// Check if a complete message is received (e.g., contains "finish_reason":"stop")
 		if (accumulatedChunk.includes('"finish_reason":"stop"')) {
-			const completeMessage = accumulatedChunk.substring(0, newlineIndex);
+			// Extract the content from the accumulatedChunk using string manipulation
+			console.log(accumulatedChunk);
+			const startIndex =
+				accumulatedChunk.indexOf('"content":"') + '"content":"'.length;
+			const endIndex = accumulatedChunk.indexOf('"}', startIndex);
 
-			// Send the complete message to the message component
-			messageCallback(completeMessage);
+			if (startIndex !== -1 && endIndex !== -1) {
+				const resultContent = accumulatedChunk.substring(
+					startIndex,
+					endIndex
+				);
 
-			// Remove the processed message from accumulatedChunk
+				// Call the messageCallback with the content
+				messageCallback(resultContent);
+
+				// Reset accumulatedChunk for the next message
+				accumulatedChunk = "";
+			}
 		}
 	}
-
-	return resultContent;
 }
