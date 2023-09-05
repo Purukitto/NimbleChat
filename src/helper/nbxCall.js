@@ -27,6 +27,8 @@ export default async function nbxCall(input, messageCallback) {
 		}
 	);
 
+	console.log(response);
+
 	const rs = response.body; // This is a ReadableStream
 	const reader = rs.getReader();
 	const decoder = new TextDecoder("utf-8");
@@ -54,5 +56,10 @@ export default async function nbxCall(input, messageCallback) {
 			// Remove the processed message from accumulatedChunk
 			accumulatedChunk = accumulatedChunk.substring(newlineIndex + 1);
 		}
+	}
+
+	// Handle any remaining content in accumulatedChunk (the last message)
+	if (accumulatedChunk.length > 0) {
+		messageCallback(accumulatedChunk);
 	}
 }
