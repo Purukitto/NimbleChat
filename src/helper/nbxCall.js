@@ -50,7 +50,6 @@ export default async function nbxCall(input) {
 			messageCallback(completeMessage);
 
 			// Remove the processed message from accumulatedChunk
-			accumulatedChunk = accumulatedChunk.substring(newlineIndex + 1);
 		}
 	}
 
