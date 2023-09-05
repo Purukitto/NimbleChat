@@ -37,12 +37,21 @@ export default async function nbxCall(input, messageCallback) {
 
 		const chunk = decoder.decode(value, { stream: true });
 
-		// Accumulate the chunk
-		// message += JSON.parse(chunk.slice(7)).choices[0].delta.content;
-		message += chunk;
-		console.log(JSON.parse(chunk.slice(7)).choices[0].delta.content);
+		const chunkData = JSON.parse(chunk);
 
-		messageCallback(message);
+		console.log(chunkData);
+
+		if (
+			chunkData.choices &&
+			chunkData.choices.length > 0 &&
+			chunkData.choices[0].delta &&
+			chunkData.choices[0].delta.content
+		) {
+			message += messageData.choices[0].delta.content;
+
+			// Call the messageCallback with the content
+			messageCallback(content);
+		}
 
 		// Check if a complete message is received (e.g., contains "finish_reason":"stop")
 		if (chunk.includes('"finish_reason":"stop"')) {
