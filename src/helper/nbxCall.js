@@ -1,4 +1,4 @@
-export default async function nbxCall(input) {
+export default async function nbxCall(input, messageCallback) {
 	const response = await fetch(
 		"https://cors-anywhere.herokuapp.com/https://chat.nbox.ai/api/chat/completions",
 		{
@@ -12,7 +12,8 @@ export default async function nbxCall(input) {
 				messages: [
 					{
 						role: "system",
-						content: "You are a weather bot. Respond accordingly.",
+						content:
+							"You are a weather bot. Your name is NBX Weather. Respond accordingly.",
 					},
 					{
 						role: "user",
@@ -26,17 +27,32 @@ export default async function nbxCall(input) {
 		}
 	);
 
-	console.log(response);
-
 	const rs = response.body; // This is a ReadableStream
 	const reader = rs.getReader();
 	const decoder = new TextDecoder("utf-8");
+	let accumulatedChunk = "";
+
 	while (true) {
 		const { value, done } = await reader.read();
 		if (done) break;
+		console.log("Streaming");
+
 		const chunk = decoder.decode(value, { stream: true });
-		console.log("decoded chunk : ", chunk);
-		// typewriting each chunk
-		setStreamContent((prev) => prev.concat(chunk));
+
+		// Accumulate the chunk
+		accumulatedChunk += chunk;
+
+		// Check if a complete message is received (e.g., terminated with a newline character)
+		const newlineIndex = accumulatedChunk.indexOf("\n");
+		if (newlineIndex !== -1) {
+			// Extract the complete message
+			const completeMessage = accumulatedChunk.substring(0, newlineIndex);
+
+			// Send the complete message to the message component
+			messageCallback(completeMessage);
+
+			// Remove the processed message from accumulatedChunk
+			accumulatedChunk = accumulatedChunk.substring(newlineIndex + 1);
+		}
 	}
 }
