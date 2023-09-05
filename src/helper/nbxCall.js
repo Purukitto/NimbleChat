@@ -44,22 +44,15 @@ export default async function nbxCall(input) {
 
 		// Check if a complete message is received (e.g., contains "finish_reason":"stop")
 		if (accumulatedChunk.includes('"finish_reason":"stop"')) {
-			// Parse the accumulatedChunk to extract the content
-			const jsonData = JSON.parse(accumulatedChunk);
-			if (jsonData.choices && jsonData.choices.length > 0) {
-				resultContent = jsonData.choices[0].delta.content;
-			}
+			const completeMessage = accumulatedChunk.substring(0, newlineIndex);
 
-			// Reset accumulatedChunk for the next message
-			accumulatedChunk = "";
+			// Send the complete message to the message component
+			messageCallback(completeMessage);
+
+			// Remove the processed message from accumulatedChunk
+			accumulatedChunk = accumulatedChunk.substring(newlineIndex + 1);
 		}
 	}
 
 	return resultContent;
 }
-
-// Example of how to use the nbxCall function
-nbxCall("Your user input here").then((content) => {
-	// You will receive the content here
-	console.log("Received content:", content);
-});
