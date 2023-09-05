@@ -1,8 +1,8 @@
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
-import { useEffect, useState } from "react";
-import supabase from "../helper/supabase";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendMessage } from "../store/chatSlice";
+import nbxCall from "../helper/nbxCall";
 
 export default function ChatInput() {
 	const [promt, setPromt] = useState("");
@@ -17,6 +17,8 @@ export default function ChatInput() {
 		setPromt(""); // Clear input field
 
 		dispatch(sendMessage({ message: input, user: user.data }));
+
+		nbxCall(input);
 	};
 
 	return (
