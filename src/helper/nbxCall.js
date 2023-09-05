@@ -30,7 +30,7 @@ export default async function nbxCall(input, messageCallback) {
 	const rs = response.body; // This is a ReadableStream
 	const reader = rs.getReader();
 	const decoder = new TextDecoder("utf-8");
-	let accumulatedChunk = "";
+	let message = "";
 
 	while (true) {
 		const { value, done } = await reader.read();
@@ -39,28 +39,13 @@ export default async function nbxCall(input, messageCallback) {
 		const chunk = decoder.decode(value, { stream: true });
 
 		// Accumulate the chunk
-		accumulatedChunk += chunk;
+		message += JSON.parse(chunk.slice(5)).choices[0].delta.content;
+
+		messageCallback(resultContent);
 
 		// Check if a complete message is received (e.g., contains "finish_reason":"stop")
 		if (accumulatedChunk.includes('"finish_reason":"stop"')) {
-			// Extract the content from the accumulatedChunk using string manipulation
-			const startIndex =
-				accumulatedChunk.indexOf('"delta":{"content":"') +
-				'"delta":{"content":"'.length;
-			const endIndex = accumulatedChunk.indexOf('"}', startIndex);
-
-			if (startIndex !== -1 && endIndex !== -1) {
-				const resultContent = accumulatedChunk.substring(
-					startIndex,
-					endIndex
-				);
-
-				// Call the messageCallback with the content
-				messageCallback(resultContent);
-
-				// Reset accumulatedChunk for the next message
-				accumulatedChunk = "";
-			}
+			accumulatedChunk = "";
 		}
 	}
 }
