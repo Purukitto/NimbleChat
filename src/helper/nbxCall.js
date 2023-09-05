@@ -44,7 +44,6 @@ export default async function nbxCall(input, messageCallback) {
 		// Check if a complete message is received (e.g., contains "finish_reason":"stop")
 		if (accumulatedChunk.includes('"finish_reason":"stop"')) {
 			// Extract the content from the accumulatedChunk using string manipulation
-			console.log(accumulatedChunk);
 			const startIndex =
 				accumulatedChunk.indexOf('"content":"') + '"content":"'.length;
 			const endIndex = accumulatedChunk.indexOf('"}', startIndex);
