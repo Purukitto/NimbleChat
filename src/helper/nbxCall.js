@@ -36,25 +36,46 @@ export default async function nbxCall(input, messageCallback) {
 		const { value, done } = await reader.read();
 
 		const chunk = decoder.decode(value, { stream: true });
-
-		try {
-			console.log(chunk);
-			const chunkData = JSON.parse(chunk.slice(5));
-
-			if (
-				chunkData.choices &&
-				chunkData.choices.length > 0 &&
-				chunkData.choices[0].delta &&
-				chunkData.choices[0].delta.content
-			) {
-				message += chunkData.choices[0].delta.content;
-
-				// Call the messageCallback with the content
-				messageCallback(message);
+		const payloads = chunk.toString().split("\n\n");
+		for (const payload of payloads) {
+			// if string includes '[DONE]'
+			if (payload.includes("[DONE]")) {
+				break;
 			}
-		} catch (e) {
-			console.error(e);
+			if (payload.startsWith("data:")) {
+				// remove 'data: ' and parse the corresponding object
+				const data = JSON.parse(payload.replace("data: ", ""));
+				try {
+					const text = data.choices[0].delta?.content;
+					if (text) {
+						message += text;
+						messageCallback(message);
+					}
+				} catch (error) {
+					console.log(
+						`Error with JSON.parse and ${payload}.\n${error}`
+					);
+				}
+			}
 		}
+		// try {
+		// 	console.log(chunk);
+		// 	const chunkData = JSON.parse(chunk.slice(5));
+
+		// 	if (
+		// 		chunkData.choices &&
+		// 		chunkData.choices.length > 0 &&
+		// 		chunkData.choices[0].delta &&
+		// 		chunkData.choices[0].delta.content
+		// 	) {
+		// 		message += chunkData.choices[0].delta.content;
+
+		// 		// Call the messageCallback with the content
+		// 		messageCallback(message);
+		// 	}
+		// } catch (e) {
+		// 	console.error(e);
+		// }
 
 		// Check if a complete message is received (e.g., contains "finish_reason":"stop")
 		if (chunk.includes('"finish_reason":"stop"')) {
