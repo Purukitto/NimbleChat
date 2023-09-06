@@ -42,7 +42,7 @@ export default function ChatInput() {
 				"Bot message in nbx call: ",
 				JSON.stringify(botMessage, null, 3)
 			);
-			dispatch(update(botMessage, response));
+			dispatch(update({ botMessage, response }));
 		});
 	};
 
