@@ -39,6 +39,7 @@ export const sendMessage = createAsyncThunk(
 export const updateMessage = createAsyncThunk(
 	"chat/updateMessage",
 	async ({ id, message }) => {
+		console.log(id, message);
 		const { error } = await supabase
 			.from("chatstream")
 			.update({ text: message })
