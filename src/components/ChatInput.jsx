@@ -38,9 +38,7 @@ export default function ChatInput() {
 
 		const { location, action } = parseInput(input);
 
-		if (action === "weather" && location) {
-			console.log("Weather action detected");
-			console.log("Location: ", location);
+		if ((action === "weather" || action === "forecast") && location) {
 		} else {
 			let lastValidResponse = null; // Initialize a variable to store the last valid response
 

@@ -11,7 +11,10 @@ export default function parseInput(input) {
 		const locationMatch = normalisedInput.match(/in\s+(.+)/);
 		if (locationMatch && locationMatch[1]) {
 			const location = locationMatch[1].trim();
-			return { location, action: "weather" };
+			action = normalisedInput.includes("weather")
+				? "weather"
+				: "forecast";
+			return { location, action };
 		}
 	}
 
