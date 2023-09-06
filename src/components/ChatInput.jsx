@@ -30,8 +30,6 @@ export default function ChatInput() {
 			},
 		};
 
-		console.log(JSON.stringify(botUser, null, 2));
-
 		const dispatchMessage = await dispatch(
 			sendMessage({ message: "", user: botUser })
 		);
@@ -41,18 +39,7 @@ export default function ChatInput() {
 			JSON.stringify(dispatchMessage, null, 3)
 		);
 
-		console.log(
-			"Chat in Input component: ",
-			JSON.stringify(chat.messages, null, 3)
-		);
-
-		console.log(
-			"Chat props: ",
-			chat.messages.length,
-			chat.messages[chat.messages.length - 1]
-		);
-
-		const botMessage = chat.messages[chat.messages.length - 1];
+		const botMessage = dispatchMessage.payload;
 
 		console.log(
 			"Bot message in Input component: ",
