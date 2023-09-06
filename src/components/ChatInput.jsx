@@ -22,6 +22,7 @@ export default function ChatInput() {
 
 		// Send bot message
 		const botUser = {
+			id: user.data.id,
 			user_metadata: {
 				user_name: "NBX Weather",
 				avatar_url:
