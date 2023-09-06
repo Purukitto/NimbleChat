@@ -14,8 +14,8 @@ export default function parseInput(input) {
 			action = normalisedInput.includes("weather")
 				? "weather"
 				: "forecast";
-			return { location, action };
 		}
+		return { location, action };
 	}
 
 	// If no weather-related keywords or location were found, assume a general query
