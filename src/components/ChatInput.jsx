@@ -41,8 +41,12 @@ export default function ChatInput() {
 			if (response) dispatch(update({ botMessage, response }));
 			else {
 				console.log("In else, botMessage: ", botMessage);
+				console.log(
+					"In else, chat messages : ",
+					JSON.stringify(chat.messages, null, 2)
+				);
 				let currentMessage = chat.messages.find((message) => {
-					console.log("In current message: ", message, botMessage);
+					console.log("In current message: ", message);
 					message.id === botMessage.id;
 				});
 				console.log("After current message: ", currentMessage);
