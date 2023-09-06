@@ -43,6 +43,7 @@ export default function ChatInput() {
 				let currentMessage = chat.messages.find(
 					(message) => message.id === botMessage.id
 				);
+				console.log(currentMessage);
 				dispatch(updateMessage(currentMessage));
 			}
 		});
