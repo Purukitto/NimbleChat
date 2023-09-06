@@ -43,7 +43,7 @@ export const updateMessage = createAsyncThunk(
 		const { data, error } = await supabase
 			.from("chatstream")
 			.update({ text: message.trim() })
-			.eq("id", id)
+			.eq("id", +id)
 			.select();
 
 		console.log(data);
