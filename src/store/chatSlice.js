@@ -12,6 +12,7 @@ export const fetchChat = createAsyncThunk("chat/fetchChat", async (chatID) => {
 	return chat.data;
 });
 
+// Send user message to database
 export const sendMessage = createAsyncThunk(
 	"chat/sendMessage",
 	async ({ message, user }) => {
@@ -39,8 +40,23 @@ export const chatSlice = createSlice({
 	initialState,
 	reducers: {
 		update: (state, action) => {
-			// state.messages.push(action.payload);
-			console.log(action.payload);
+			const { botMessage, response } = action.payload;
+			const existingMessageIndex = state.messages.findIndex(
+				(m) => m.id === botMessage.id
+			);
+
+			if (existingMessageIndex !== -1) {
+				state.messages[existingMessageIndex] = {
+					...state.messages[existingMessageIndex],
+					text: response,
+				};
+			} else {
+				state.messages.push({
+					...state.messages[existingMessageIndex],
+					text: response,
+				});
+			}
+
 		},
 	},
 	extraReducers: (builder) => {
@@ -61,6 +77,7 @@ export const chatSlice = createSlice({
 
 		builder.addCase(sendMessage.pending, (state) => {
 			state.error = "";
+			state.loading = true;
 		});
 
 		builder.addCase(sendMessage.fulfilled, (state, action) => {
