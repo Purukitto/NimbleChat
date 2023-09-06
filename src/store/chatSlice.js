@@ -40,6 +40,7 @@ export const chatSlice = createSlice({
 	initialState,
 	reducers: {
 		update: (state, action) => {
+			console.log("action.payload: ", action.payload);
 			const { botMessage, response } = action.payload;
 			console.log(
 				"botMessage in payload: ",

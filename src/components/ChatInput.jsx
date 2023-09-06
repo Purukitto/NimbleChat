@@ -34,20 +34,14 @@ export default function ChatInput() {
 			sendMessage({ message: "", user: botUser })
 		);
 
-		console.log(
-			"Dispatch message: ",
-			JSON.stringify(dispatchMessage, null, 3)
-		);
-
 		const botMessage = dispatchMessage.payload;
-
-		console.log(
-			"Bot message in Input component: ",
-			JSON.stringify(botMessage, null, 3)
-		);
 
 		// Use helper function to call NBX API and update bot message
 		nbxCall(input, (response) => {
+			console.log(
+				"Bot message in nbx call: ",
+				JSON.stringify(botMessage, null, 3)
+			);
 			dispatch(update(botMessage, response));
 		});
 	};
