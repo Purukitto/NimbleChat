@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import supabase from "../helper/supabase";
 import Message from "./Message";
 import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +8,7 @@ export default function Chat() {
 	const chat = useSelector((state) => state.chat);
 	const user = useSelector((state) => state.user);
 	const dispatch = useDispatch();
-	const ref = useRef<HTMLDivElement>(null);
+	const ref = useRef(null);
 
 	useEffect(() => {
 		if (chat.messages.length) {
