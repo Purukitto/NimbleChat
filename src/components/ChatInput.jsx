@@ -44,11 +44,13 @@ export default function ChatInput() {
 		const { location, action } = parseInput(input);
 
 		if ((action === "weather" || action === "forecast") && location) {
-			const { data, error, isLoading } = await useGetLonLatByNameQuery(
-				location
-			);
+			const locationData = await useGetLonLatByNameQuery(location);
 
-			console.log(data[0].lat, data[0].lon);
+			console.log(
+				locationData,
+				locationData.data[0].lat,
+				locationData.data[0].lon
+			);
 
 			// if(!isLoading) const {data, error, isLoading} = await useGetWeatherByLonLatQuery({lat: data[0].lat, lon: data[0].lon})
 		} else {
