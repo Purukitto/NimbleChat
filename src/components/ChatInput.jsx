@@ -8,6 +8,7 @@ export default function ChatInput() {
 	const [promt, setPromt] = useState("");
 	const user = useSelector((state) => state.user);
 	const chat = useSelector((state) => state.chat);
+	const [botMessage, setBotMessage] = useState("");
 	const dispatch = useDispatch();
 
 	const handleSendMessage = async (e) => {
@@ -34,18 +35,16 @@ export default function ChatInput() {
 			sendMessage({ message: "", user: botUser })
 		);
 
-		const botMessage = dispatchMessage.payload;
+		setBotMessage(dispatchMessage.payload);
 
 		// Use helper function to call NBX API and update bot message
 		nbxCall(input, (response) => {
-			let currentMessage;
 			if (response) {
 				const currMess = dispatch(update({ botMessage, response }));
-				currentMessage = currMess.payload;
-				console.log("Current message in if: ", currentMessage);
+				setBotMessage(currMess.payload);
 			} else {
-				console.log("Current message in else: ", currentMessage);
-				dispatch(updateMessage(currentMessage));
+				console.log("Current message in else: ", botMessage);
+				dispatch(updateMessage(botMessage));
 			}
 		});
 
