@@ -6,7 +6,7 @@ export default function Message({ id, message }) {
 
 	return (
 		<div className={`py-5 text-white ${isBot && "bg-slate-700"}`}>
-			<div className="flex space-x-5 px-10 max-w-4xl mx-auto items-center">
+			<div className="flex space-x-5 px-10 max-w-4xl mx-auto ">
 				<img
 					src={message.user.avatar}
 					alt="avatar"
