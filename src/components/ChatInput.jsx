@@ -43,7 +43,7 @@ export default function ChatInput() {
 				dispatch(update({ payload, response }));
 				setLastResponse(response);
 			} else {
-				console.log("In else", payload, lastResponse);
+				console.log("In else", lastResponse);
 				dispatch(updateMessage(payload.id, lastResponse));
 			}
 		});
