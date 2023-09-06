@@ -35,6 +35,8 @@ export default async function nbxCall(input, messageCallback) {
 	while (true) {
 		const { value, done } = await reader.read();
 
+		if (done) break;
+
 		const chunk = decoder.decode(value, { stream: true });
 		const payloads = chunk.toString().split("\n\n");
 		for (const payload of payloads) {
