@@ -5,7 +5,6 @@ import { sendMessage, update, updateMessage } from "../store/chatSlice";
 import nbxCall from "../helper/nbxCall";
 import parseInput from "../helper/parseInput";
 
-
 export default function ChatInput() {
 	const [promt, setPromt] = useState("");
 
@@ -41,12 +40,13 @@ export default function ChatInput() {
 
 		if ((action === "weather" || action === "forecast") && location) {
 			// const locationData = await useGetLonLatByNameQuery(location);
+			const locationData = await fetch(
+				`https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${
+					import.meta.env.VITE_OPENWEATHERMAP_KEY
+				}`
+			).then((res) => res.json());
 
-			console.log(
-				locationData,
-				locationData.data[0].lat,
-				locationData.data[0].lon
-			);
+			console.log(locationData, locationData[0].lat, locationData[0].lon);
 
 			// if(!isLoading) const {data, error, isLoading} = await useGetWeatherByLonLatQuery({lat: data[0].lat, lon: data[0].lon})
 		} else {
