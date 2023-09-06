@@ -41,6 +41,12 @@ export const chatSlice = createSlice({
 	reducers: {
 		update: (state, action) => {
 			const { botMessage, response } = action.payload;
+			console.log(
+				"botMessage in payload: ",
+				JSON.stringify(botMessage),
+				"response in payload: ",
+				response
+			);
 			const existingMessageIndex = state.messages.findIndex(
 				(m) => m.id === botMessage.id
 			);
@@ -56,7 +62,6 @@ export const chatSlice = createSlice({
 					text: response,
 				});
 			}
-
 		},
 	},
 	extraReducers: (builder) => {
