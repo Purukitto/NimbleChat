@@ -38,18 +38,13 @@ export default function ChatInput() {
 
 		// Use helper function to call NBX API and update bot message
 		nbxCall(input, (response) => {
-			if (response) dispatch(update({ botMessage, response }));
-			else {
-				console.log("In else, botMessage: ", botMessage);
-				console.log(
-					"In else, chat messages : ",
-					JSON.stringify(chat.messages, null, 2)
-				);
-				let currentMessage = chat.messages.find((message) => {
-					console.log("In current message: ", message);
-					message.id === botMessage.id;
-				});
-				console.log("After current message: ", currentMessage);
+			let currentMessage;
+			if (response) {
+				const currMess = dispatch(update({ botMessage, response }));
+				currentMessage = currMess.payload;
+				console.log("Current message in if: ", currentMessage);
+			} else {
+				console.log("Current message in else: ", currentMessage);
 				dispatch(updateMessage(currentMessage));
 			}
 		});
