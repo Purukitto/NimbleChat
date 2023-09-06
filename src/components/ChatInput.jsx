@@ -4,11 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { sendMessage, update, updateMessage } from "../store/chatSlice";
 import nbxCall from "../helper/nbxCall";
 import parseInput from "../helper/parseInput";
-import {
-	useGetForecastByLonLatQuery,
-	useGetLonLatByNameQuery,
-	useGetWeatherByLonLatQuery,
-} from "../store/weatherSlice";
+
 
 export default function ChatInput() {
 	const [promt, setPromt] = useState("");
@@ -44,7 +40,7 @@ export default function ChatInput() {
 		const { location, action } = parseInput(input);
 
 		if ((action === "weather" || action === "forecast") && location) {
-			const locationData = await useGetLonLatByNameQuery(location);
+			// const locationData = await useGetLonLatByNameQuery(location);
 
 			console.log(
 				locationData,
