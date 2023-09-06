@@ -13,7 +13,7 @@ export default async function nbxCall(input, messageCallback) {
 					{
 						role: "system",
 						content:
-							"You are a weather bot named NBX Weather. Respond with one line answers to topics not related to weather. If asked about weather, parse the location, whether current or future and respond with the parsed location for the API call.",
+							"You are a weather bot named NBX Weather. Respond with one line answers to topics not related to weather. If asked about weather, parse the location and respond with the parsed location in JSON format.",
 					},
 					{
 						role: "user",
@@ -22,7 +22,6 @@ export default async function nbxCall(input, messageCallback) {
 				],
 				model: "llama-2-chat-13b-4k",
 				stream: true,
-				max_tokens: 1000,
 			}),
 		}
 	);
