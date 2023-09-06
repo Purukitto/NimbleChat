@@ -19,7 +19,7 @@ export default function Home() {
 			<h1 className="text-4xl font-bold mb-20">NimbleChat</h1>
 			<div className="text-center">
 				<div className="flex flex-col items-center justify-center mb-5">
-					<ChatBubbleLeftEllipsisIcon className="h-8 w-8" />
+					<ChatBubbleLeftEllipsisIcon className=" h-7 w-7" />
 					<h2>Examples</h2>
 				</div>
 				<div className="space-y-2">
