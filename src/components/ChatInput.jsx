@@ -40,8 +40,10 @@ export default function ChatInput() {
 		nbxCall(input, (response) => {
 			if (response) dispatch(update({ botMessage, response }));
 			else {
-				console.log("Else success");
-				dispatch(updateMessage(botMessage));
+				let currentMessage = chat.messages.find(
+					(message) => message.id === botMessage.id
+				);
+				dispatch(updateMessage(currentMessage));
 			}
 		});
 
