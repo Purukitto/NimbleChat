@@ -10,7 +10,7 @@ export default function ChatInput() {
 	const chat = useSelector((state) => state.chat);
 	const dispatch = useDispatch();
 
-	const handleSendMessage = (e) => {
+	const handleSendMessage = async (e) => {
 		e.preventDefault();
 
 		const input = promt.trim(); // Remove whitespace
@@ -18,7 +18,7 @@ export default function ChatInput() {
 		setPromt(""); // Clear input field
 
 		// Send user message
-		dispatch(sendMessage({ message: input, user: user.data }));
+		await dispatch(sendMessage({ message: input, user: user.data }));
 
 		// Send bot message
 		const botUser = {
@@ -32,12 +32,20 @@ export default function ChatInput() {
 
 		console.log(JSON.stringify(botUser, null, 2));
 
-		dispatch(sendMessage({ message: "", user: botUser }));
+		const dispatchMessage = await dispatch(
+			sendMessage({ message: "", user: botUser })
+		);
+
+		console.log(
+			"Dispatch message: ",
+			JSON.stringify(dispatchMessage, null, 3)
+		);
 
 		console.log(
 			"Chat in Input component: ",
-			JSON.stringify(chat.message, null, 3)
+			JSON.stringify(chat.messages, null, 3)
 		);
+
 		console.log(
 			"Chat props: ",
 			chat.messages.length,
@@ -48,9 +56,7 @@ export default function ChatInput() {
 
 		console.log(
 			"Bot message in Input component: ",
-			JSON.stringify(botMessage),
-			null,
-			2
+			JSON.stringify(botMessage, null, 3)
 		);
 
 		// Use helper function to call NBX API and update bot message
