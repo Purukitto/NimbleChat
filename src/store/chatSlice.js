@@ -40,14 +40,8 @@ export const chatSlice = createSlice({
 	initialState,
 	reducers: {
 		update: (state, action) => {
-			console.log("action.payload: ", action.payload);
 			const { botMessage, response } = action.payload;
-			console.log(
-				"botMessage in payload: ",
-				JSON.stringify(botMessage),
-				"response in payload: ",
-				response
-			);
+
 			const existingMessageIndex = state.messages.findIndex(
 				(m) => m.id === botMessage.id
 			);
