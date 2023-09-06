@@ -8,7 +8,7 @@ export default function WeatherCard({ weatherData }) {
 
 	return cardType === "weather" ? (
 		<div className="flex flex-wrap">
-			<div className="flex flex-col min-w-fit h-64 justify-between bg-slate-950 p-5 rounded-lg mt-3">
+			<div className="flex flex-col min-w-fit h-64 justify-between bg-slate-950 p-8 rounded-lg mt-3">
 				<div>
 					<div className=" font-bold">
 						{dayName(prettyDate.day())}
@@ -33,7 +33,7 @@ export default function WeatherCard({ weatherData }) {
 					{weatherData.weather[0].description}
 				</div>
 			</div>
-			<div className="flex text-sm min-w-fit flex-col space-y-1 h-64 bg-slate-900 py-8 px-6 rounded-lg mt-3">
+			<div className="flex text-sm min-w-fit flex-col space-y-2 h-64 bg-slate-900 py-8 px-6 rounded-lg mt-3">
 				<div className="flex">
 					<h4 className="font-semibold">Humidity</h4> :{" "}
 					{weatherData.main.humidity}%
