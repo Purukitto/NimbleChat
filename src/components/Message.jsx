@@ -1,7 +1,8 @@
 import dayjs from "dayjs";
 
 export default function Message({ id, message }) {
-	const isBot = message.user.fname === "NBX Weather"; //TODO: Replace with your bot id
+	const isBot = message.user.fName === "NBX Weather";
+
 	return (
 		<div className={`py-5 text-white ${isBot && "bg-slate-700"}`}>
 			<div className="flex space-x-5 px-10 max-w-4xl mx-auto items-center">
