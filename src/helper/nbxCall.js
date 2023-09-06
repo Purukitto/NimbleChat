@@ -40,6 +40,7 @@ export default async function nbxCall(input, messageCallback) {
 		for (const payload of payloads) {
 			// if string includes '[DONE]'
 			if (payload.includes("[DONE]")) {
+				messageCallback(false);
 				break;
 			}
 			if (payload.startsWith("data:")) {
@@ -59,5 +60,4 @@ export default async function nbxCall(input, messageCallback) {
 			}
 		}
 	}
-	return false;
 }
