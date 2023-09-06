@@ -30,6 +30,8 @@ export default function ChatInput() {
 			},
 		};
 
+        console.log(botUser);
+
 		dispatch(sendMessage({ message: "", user: botUser }));
 		const botMessage = chat.messages[chat.messages.length - 1];
 
