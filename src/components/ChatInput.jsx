@@ -38,7 +38,8 @@ export default function ChatInput() {
 
 		// Use helper function to call NBX API and update bot message
 		nbxCall(input, (response) => {
-			dispatch(update({ botMessage, response }));
+			if (response) dispatch(update({ botMessage, response }));
+			else return;
 		});
 	};
 

@@ -59,4 +59,5 @@ export default async function nbxCall(input, messageCallback) {
 			}
 		}
 	}
+	return false;
 }
