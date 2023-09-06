@@ -6,7 +6,6 @@ import nbxCall from "../helper/nbxCall";
 
 export default function ChatInput() {
 	const [promt, setPromt] = useState("");
-	const [lastResponse, setLastResponse] = useState("");
 
 	const user = useSelector((state) => state.user);
 	const chat = useSelector((state) => state.chat);
@@ -36,17 +35,25 @@ export default function ChatInput() {
 			sendMessage({ message: "", user: botUser })
 		);
 
-		console.log(payload);
+		let lastValidResponse = null; // Initialize a variable to store the last valid response
+
 		// Use helper function to call NBX API and update bot message
 		nbxCall(input, async (response) => {
 			if (response) {
 				dispatch(update({ payload, response }));
-				await setLastResponse(response);
+				lastValidResponse = response; // Update lastValidResponse with the current response
 			} else {
-				console.log("In else", lastResponse);
-				dispatch(
-					updateMessage({ id: payload.id, message: lastResponse })
-				);
+				if (lastValidResponse !== null) {
+					dispatch(
+						updateMessage({
+							id: payload.id,
+							message: lastValidResponse,
+						})
+					);
+				} else {
+					// Handle the case where there is no valid response yet
+					console.error("No valid response available.");
+				}
 			}
 		});
 
