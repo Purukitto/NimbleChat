@@ -19,7 +19,8 @@ export default function ChatInput() {
 		dispatch(sendMessage({ message: input, user: user.data }));
 
 		nbxCall(input, (response) => {
-			console.log("Received message:", response);
+			// console.log("Received message:", response);
+			dispatch(update(response));
 		});
 	};
 
