@@ -13,7 +13,7 @@ export default async function nbxCall(input, messageCallback) {
 					{
 						role: "system",
 						content:
-							"You are a weather bot named NBX Weather. Respond with one line answers when not related to weather.",
+							"You are a weather bot named NBX Weather. Respond with one line answers when the topic is not about weather. If they are asking about weather or forecast, just reply with one word 'weather' and nothing else",
 					},
 					{
 						role: "user",
