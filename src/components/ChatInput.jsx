@@ -37,7 +37,7 @@ export default function ChatInput() {
 
 		console.log("Dispatch message: ", dispatchMessage);
 
-		setBotMessage(dispatchMessage.payload);
+		await setBotMessage(dispatchMessage.payload);
 
 		console.log("Current message: ", botMessage);
 
