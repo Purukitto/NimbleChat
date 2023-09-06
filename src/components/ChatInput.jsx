@@ -38,9 +38,11 @@ export default function ChatInput() {
 		setBotMessage(dispatchMessage.payload);
 
 		// Use helper function to call NBX API and update bot message
-		nbxCall(input, (response) => {
+		nbxCall(input, async (response) => {
 			if (response) {
-				const currMess = dispatch(update({ botMessage, response }));
+				const currMess = await dispatch(
+					update({ botMessage, response })
+				);
 				setBotMessage(currMess.payload);
 			} else {
 				console.log("Current message in else: ", botMessage);
