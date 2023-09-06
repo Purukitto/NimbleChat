@@ -11,15 +11,27 @@ export default function Chat() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		if (chat.messages.length) {
+			ref.current?.scrollIntoView({
+				behavior: "smooth",
+				block: "end",
+			});
+		}
+	}, [chat.messages.length]);
+
+	useEffect(() => {
 		if (user.data) dispatch(fetchChat(user.data.id));
 	}, [user.data]);
 
 	return (
 		<div className="flex-1 overflow-y-auto overflow-x-hidden">
 			{!chat.error && chat.messages.length > 0 ? (
-				chat.messages.map((message) => (
-					<Message key={message.id} message={message} />
-				))
+				<>
+					{chat.messages.map((message) => (
+						<Message key={message.id} message={message} />
+					))}
+					<div ref={ref} className="h-3" />
+				</>
 			) : (
 				<>
 					<p className="mt-10 text-center text-white">
