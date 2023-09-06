@@ -1,7 +1,7 @@
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { sendMessage } from "../store/chatSlice";
+import { sendMessage, update } from "../store/chatSlice";
 import nbxCall from "../helper/nbxCall";
 
 export default function ChatInput() {
