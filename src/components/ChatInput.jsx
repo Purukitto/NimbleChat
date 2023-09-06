@@ -40,6 +40,7 @@ export default function ChatInput() {
 
 		if (action === "weather" && location) {
 			console.log("Weather action detected");
+			console.log("Location: ", location);
 		} else {
 			let lastValidResponse = null; // Initialize a variable to store the last valid response
 
