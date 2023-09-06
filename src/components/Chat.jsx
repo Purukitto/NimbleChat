@@ -16,7 +16,7 @@ export default function Chat() {
 
 	return (
 		<div className="flex-1 overflow-y-auto overflow-x-hidden">
-			{!chat.loading && !chat.error && chat.messages.length > 0 ? (
+			{!chat.error && chat.messages.length > 0 ? (
 				chat.messages.map((message) => (
 					<Message key={message.id} message={message} />
 				))
