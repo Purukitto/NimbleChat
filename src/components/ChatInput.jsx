@@ -40,11 +40,11 @@ export default function ChatInput() {
 		// Use helper function to call NBX API and update bot message
 		nbxCall(input, async (response) => {
 			if (response) {
-				dispatch(update({ payload, response }));
+				await dispatch(update({ payload, response }));
 				lastValidResponse = response; // Update lastValidResponse with the current response
 			} else {
 				if (lastValidResponse !== null) {
-					dispatch(
+					await dispatch(
 						updateMessage({
 							id: payload.id,
 							message: lastValidResponse,
