@@ -31,13 +31,13 @@ export default function ChatInput() {
 			},
 		};
 
-		const dispatchMessage = await dispatch(
+		const { payload } = await dispatch(
 			sendMessage({ message: "", user: botUser })
 		);
 
-		console.log("Dispatch message: ", dispatchMessage);
+		console.log("Dispatch message: ", payload);
 
-		await setBotMessage(dispatchMessage.payload);
+		setBotMessage(payload);
 
 		console.log("Current message: ", botMessage);
 
