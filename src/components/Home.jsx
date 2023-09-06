@@ -24,11 +24,10 @@ export default function Home() {
 				</div>
 				<div className="space-y-2">
 					<p className="infoText">
-						Lorem Ipsum yada yada. Lorem Ipsum yada yada. Lorem
-						Ipsum yada yada
+						Who are you? How can you help me?
 					</p>
-					<p className="infoText">Lorem Ipsum yada yada</p>
-					<p className="infoText">Lorem Ipsum yada yada</p>
+					<p className="infoText">What is the weather like in Bengaluru?</p>
+					<p className="infoText">Give me the forecast for Bengaluru.</p>
 				</div>
 			</div>
 			<div className=" mt-24">

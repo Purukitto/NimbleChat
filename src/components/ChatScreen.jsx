@@ -23,8 +23,13 @@ export default function ChatScreen() {
 		<>
 			{user.data.user_metadata && (
 				<div className="flex flex-col h-screen overflow-hidden">
-					<div className="flex justify-end mr-5 mt-2">
-						<div className="flex items-center space-x-2">
+					<div className="flex justify-between bg-slate-950 text-white">
+						<div>
+							<h1 className="text-xl font-semibold my-2 ml-8">
+								Nimble Chat
+							</h1>
+						</div>
+						<div className="flex items-center space-x-2 my-2 mr-8">
 							<img
 								src={user.data.user_metadata.avatar_url}
 								alt="avatar"
