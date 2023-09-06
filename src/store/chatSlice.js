@@ -40,7 +40,7 @@ export const chatSlice = createSlice({
 	reducers: {
 		update: (state, action) => {
 			// state.messages.push(action.payload);
-			console.log(console.log(action.payload));
+			console.log(action.payload);
 		},
 	},
 	extraReducers: (builder) => {
