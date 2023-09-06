@@ -9,7 +9,7 @@ export default function Home() {
 		await supabase.auth.signInWithOAuth({
 			provider: "github",
 			options: {
-				redirectTo: "https://jazzy-pavlova-932105.netlify.app/chat",
+				redirectTo: "http://127.0.0.1:5173/chat",
 			},
 		});
 	};

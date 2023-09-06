@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { sendMessage, update, updateMessage } from "../store/chatSlice";
 import nbxCall from "../helper/nbxCall";
 import parseInput from "../helper/parseInput";
+import processWeather from "../helper/processWeather";
 
 export default function ChatInput() {
 	const [promt, setPromt] = useState("");
@@ -32,26 +33,19 @@ export default function ChatInput() {
 			},
 		};
 
-		const { payload } = await dispatch(
-			sendMessage({ message: "", user: botUser })
-		);
+		// TODO: Loading state for bot message
 
 		const { location, action } = parseInput(input);
 
-		console.log(location, action);
-
 		if ((action === "weather" || action === "forecast") && location) {
-			// const locationData = await useGetLonLatByNameQuery(location);
-			const locationData = await fetch(
-				`https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${
-					import.meta.env.VITE_OPENWEATHERMAP_KEY
-				}`
-			).then((res) => res.json());
-
-			console.log(locationData, locationData[0].lat, locationData[0].lon);
-
-			// if(!isLoading) const {data, error, isLoading} = await useGetWeatherByLonLatQuery({lat: data[0].lat, lon: data[0].lon})
+			const processedWeather = await processWeather(location, action);
+			const messageObject = { weatherData: processedWeather };
+			dispatch(sendMessage({ message: messageObject, user: botUser }));
 		} else {
+			const { payload } = await dispatch(
+				sendMessage({ message: "", user: botUser })
+			);
+
 			let lastValidResponse = null; // Initialize a variable to store the last valid response
 
 			// Use helper function to call NBX API and update bot message
