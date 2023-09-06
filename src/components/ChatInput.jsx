@@ -8,7 +8,7 @@ export default function ChatInput() {
 	const [promt, setPromt] = useState("");
 	const user = useSelector((state) => state.user);
 	const chat = useSelector((state) => state.chat);
-	const [botMessage, setBotMessage] = useState("");
+	const [botMessage, setBotMessage] = useState({});
 	const dispatch = useDispatch();
 
 	const handleSendMessage = async (e) => {
