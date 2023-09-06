@@ -35,6 +35,21 @@ export const sendMessage = createAsyncThunk(
 	}
 );
 
+// Update message text in database
+export const updateMessage = createAsyncThunk(
+	"chat/updateMessage",
+	async ({ message }) => {
+		const { data, error } = await supabase
+			.from("chatstream")
+			.update({ text: message })
+			.eq("id", message.id)
+			.select();
+
+		if (error) throw new Error(error.message);
+		else return data[0];
+	}
+);
+
 export const chatSlice = createSlice({
 	name: "chat",
 	initialState,
@@ -86,6 +101,20 @@ export const chatSlice = createSlice({
 		});
 
 		builder.addCase(sendMessage.rejected, (state, action) => {
+			state.loading = false;
+			// state.error = action.error.message; TODO
+		});
+
+		builder.addCase(updateMessage.pending, (state) => {
+			state.error = "";
+			state.loading = true;
+		});
+
+		builder.addCase(updateMessage.fulfilled, (state) => {
+			state.loading = false;
+		});
+
+		builder.addCase(updateMessage.rejected, (state, action) => {
 			state.loading = false;
 			// state.error = action.error.message; TODO
 		});

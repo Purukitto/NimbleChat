@@ -1,7 +1,7 @@
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { sendMessage, update } from "../store/chatSlice";
+import { sendMessage, update, updateMessage } from "../store/chatSlice";
 import nbxCall from "../helper/nbxCall";
 
 export default function ChatInput() {
@@ -38,8 +38,11 @@ export default function ChatInput() {
 
 		// Use helper function to call NBX API and update bot message
 		nbxCall(input, (response) => {
-			dispatch(update({ botMessage, response }));
+			if (response) dispatch(update({ botMessage, response }));
+			else dispatch(updateMessage(botMessage));
 		});
+
+		// Update the last message in the chat
 	};
 
 	return (
