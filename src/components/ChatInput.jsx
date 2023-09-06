@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendMessage, update, updateMessage } from "../store/chatSlice";
 import nbxCall from "../helper/nbxCall";
+import parseInput from "../helper/parseInput";
 
 export default function ChatInput() {
 	const [promt, setPromt] = useState("");
@@ -35,29 +36,33 @@ export default function ChatInput() {
 			sendMessage({ message: "", user: botUser })
 		);
 
-		let lastValidResponse = null; // Initialize a variable to store the last valid response
+		const { location, action } = parseInput(input);
 
-		// Use helper function to call NBX API and update bot message
-		nbxCall(input, async (response) => {
-			if (response) {
-				dispatch(update({ payload, response }));
-				lastValidResponse = response; // Update lastValidResponse with the current response
-			} else {
-				if (lastValidResponse !== null) {
-					dispatch(
-						updateMessage({
-							id: payload.id,
-							message: lastValidResponse,
-						})
-					);
+		if (action === "weather" && location) {
+			console.log("Weather action detected");
+		} else {
+			let lastValidResponse = null; // Initialize a variable to store the last valid response
+
+			// Use helper function to call NBX API and update bot message
+			nbxCall(input, async (response) => {
+				if (response) {
+					dispatch(update({ payload, response }));
+					lastValidResponse = response; // Update lastValidResponse with the current response
 				} else {
-					// Handle the case where there is no valid response yet
-					console.error("No valid response available.");
+					if (lastValidResponse !== null) {
+						dispatch(
+							updateMessage({
+								id: payload.id,
+								message: lastValidResponse,
+							})
+						);
+					} else {
+						// Handle the case where there is no valid response yet
+						console.error("No valid response available.");
+					}
 				}
-			}
-		});
-
-		// Update the last message in the chat
+			});
+		}
 	};
 
 	return (
