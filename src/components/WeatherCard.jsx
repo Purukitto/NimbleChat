@@ -7,8 +7,11 @@ import getIndianAQI from "../helper/getIndianAQI";
 export default function WeatherCard({ weatherData }) {
 	const cardType = weatherData.type;
 	const prettyDate = dayjs();
-	const { healthConcern, color } = getAQIInfo(weatherData.list[0].main.aqi);
-	const indianAQI = getIndianAQI(weatherData.list[0].components);
+	const { healthConcern, color } =
+		weatherData.type === "aqi" && getAQIInfo(weatherData.list[0].main.aqi);
+	const indianAQI =
+		weatherData.type === "aqi" &&
+		getIndianAQI(weatherData.list[0].components);
 
 	switch (cardType) {
 		case "weather":
