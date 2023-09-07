@@ -17,7 +17,8 @@ export default function Home() {
 
 	return (
 		<div className="flex flex-col items-center justify-center h-screen px-2 text-white">
-			<h1 className="text-4xl font-bold mb-20">NimbleChat</h1>
+			<img src="https://cdn-icons-png.flaticon.com/512/9231/9231625.png" className="h-20 w-20" />
+			<h1 className="text-4xl font-bold mb-20">Nimble Chat</h1>
 			<div className="text-center">
 				<div className="flex flex-col items-center justify-center mb-5">
 					<ChatBubbleLeftEllipsisIcon className=" h-7 w-7" />
