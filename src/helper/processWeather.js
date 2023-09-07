@@ -1,6 +1,5 @@
 export default async function processWeather(location, action) {
-	const BASE_URL =
-		"https://nocors-proxy-d63b3f09ff4c.herokuapp.com/https://api.openweathermap.org";
+	const BASE_URL = "https://api.openweathermap.org";
 
 	const locationData = await fetch(
 		`${BASE_URL}/geo/1.0/direct?q=${location}&limit=1&appid=${
