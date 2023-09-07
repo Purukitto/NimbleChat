@@ -47,19 +47,17 @@ export default function ChatScreen() {
 					<ChatInput />
 				</div>
 			) : (
-				<div className="flex flex-col h-screen overflow-hidden">
-					<div className="flex justify-between bg-slate-950 text-white">
+				<div className=" flex flex-col h-screen text-white">
+					<div className="flex justify-between bg-slate-950">
 						<div>
 							<h1 className="text-xl font-semibold my-2 ml-8">
 								Nimble Chat
 							</h1>
-							<div>
-								<h1 className="text-xl font-semibold my-2 ml-8">
-									Please wait while we log you in...
-								</h1>
-							</div>
 						</div>
 					</div>
+					<h1 className="flex-1 text-center mt-10 text-xl font-semibold my-2 ml-8">
+						Please wait while we log you in...
+					</h1>
 				</div>
 			)}
 		</>
