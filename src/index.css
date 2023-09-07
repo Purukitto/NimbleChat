@@ -8,8 +8,28 @@
 	}
 }
 
+/* Custom scrollbar styling */
+* {
+	scrollbar-width: thin; /* Firefox */
+	scrollbar-color: #1F1F1F #343541; /* Firefox */
+}
+
+*::-webkit-scrollbar {
+	width: 10px; /* WebKit (Chrome, Safari, etc.) */
+}
+
+*::-webkit-scrollbar-track {
+	background: #343541;
+}
+
+*::-webkit-scrollbar-thumb {
+	background: #1F1F1F;
+	border-radius: 5px;
+}
+
+/* DNA loader styling */
 svg.dna-wrapper circle:nth-child(odd) {
-	fill: #FFFFFF !important;
+	fill: #ffffff !important;
 }
 svg.dna-wrapper circle:nth-child(even) {
 	fill: #c4d7ff !important;
