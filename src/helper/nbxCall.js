@@ -1,7 +1,7 @@
 export default async function nbxCall(input, messageCallback) {
 	// API call to NBox AI
 	const response = await fetch(
-		"https://cors-anywhere.purukitto.repl.co/https://chat.nbox.ai/api/chat/completions",
+		"https://nocors-proxy-d63b3f09ff4c.herokuapp.com/https://chat.nbox.ai/api/chat/completions",
 		{
 			method: "POST",
 			headers: {
