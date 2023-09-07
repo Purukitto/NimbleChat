@@ -37,10 +37,21 @@ export default function ChatInput() {
 
 		if (["weather", "forecast", "aqi"].includes(action) && location) {
 			const processedWeather = await processWeather(location, action);
-			const messageObject = { weatherData: processedWeather };
-			await dispatch(
-				sendMessage({ message: messageObject, user: botUser })
-			);
+			if (processedWeather)
+				await dispatch(
+					sendMessage({
+						message: { weatherData: processedWeather },
+						user: botUser,
+					})
+				);
+			else
+				await dispatch(
+					sendMessage({
+						message:
+							"Sorry, I couldn't find that location. Please try again with another location.",
+						user: botUser,
+					})
+				);
 		} else {
 			const { payload } = await dispatch(
 				sendMessage({ message: "", user: botUser })

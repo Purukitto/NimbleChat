@@ -6,6 +6,8 @@ export default async function processWeather(location, action) {
 		}`
 	).then((res) => res.json());
 
+	if (locationData.length === 0) return null;
+
 	const WEATHER_URL = `${BASE_URL}/data/2.5`;
 
 	switch (action) {
