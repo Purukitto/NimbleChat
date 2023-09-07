@@ -1,9 +1,10 @@
 export default function getIndianAQI(pollutants) {
-	// Remove no from pollutants
+	// Remove no and nh3 from pollutants
 	delete pollutants.no;
 	delete pollutants.nh3;
 
 	// Define the AQI breakpoints and coefficients for each pollutant
+	// Breakpoint data https://openweathermap.org/air-pollution-index-levels#usa
 	const pollutantInfo = {
 		co: {
 			breakpoints: [0, 4.4, 9.4, 12.4, 15.4, 30.4, 40.4, 50.4],
@@ -31,6 +32,7 @@ export default function getIndianAQI(pollutants) {
 		},
 	};
 
+	// Source: https://www.breeze-technologies.de/blog/air-pollution-how-to-convert-between-mgm3-%C2%B5gm3-ppm-ppb/
 	const conversionFactors = {
 		co: 1 / 1150,
 		no2: 1 / 1880,
