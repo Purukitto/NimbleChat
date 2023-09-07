@@ -3,7 +3,7 @@ import Message from "./Message";
 import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchChat } from "../store/chatSlice";
-import { Dna } from "react-loader-spinner";
+import { Dna, LineWave } from "react-loader-spinner";
 
 export default function Chat() {
 	const chat = useSelector((state) => state.chat);
@@ -34,6 +34,22 @@ export default function Chat() {
 								<Message key={message.id} message={message} />
 							))}
 							<div ref={ref} className="h-3" />
+							{chat.thinking && (
+								<div className="flex flex-1 justify-center">
+									<LineWave
+										height="100"
+										width="100"
+										color="#4fa94d"
+										ariaLabel="line-wave"
+										wrapperStyle={{}}
+										wrapperClass=""
+										visible={true}
+										firstLineColor="c4d7ff"
+										middleLineColor="c4d7ff"
+										lastLineColor="c4d7ff"
+									/>
+								</div>
+							)}
 						</>
 					) : (
 						<>

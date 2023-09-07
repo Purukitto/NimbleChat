@@ -1,7 +1,13 @@
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { sendMessage, update, updateMessage } from "../store/chatSlice";
+import {
+	sendMessage,
+	startThinking,
+	stopThinking,
+	update,
+	updateMessage,
+} from "../store/chatSlice";
 import nbxCall from "../helper/nbxCall";
 import parseInput from "../helper/parseInput";
 import processWeather from "../helper/processWeather";
@@ -32,6 +38,8 @@ export default function ChatInput() {
 					"https://cdn-icons-png.flaticon.com/512/9231/9231625.png",
 			},
 		};
+
+		await dispatch(startThinking()); // Toggle thinking animation
 
 		const { location, action } = parseInput(input);
 
@@ -79,6 +87,7 @@ export default function ChatInput() {
 				}
 			});
 		}
+		dispatch(stopThinking()); // Toggle thinking animation
 	};
 
 	return (

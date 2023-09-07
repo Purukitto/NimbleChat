@@ -4,6 +4,7 @@ import supabase from "../helper/supabase";
 const initialState = {
 	messages: [],
 	loading: false,
+	thinking: false,
 	error: null,
 };
 
@@ -76,6 +77,12 @@ export const chatSlice = createSlice({
 				});
 			}
 		},
+		startThinking: (state) => {
+			state.thinking = true;
+		},
+		stopThinking: (state) => {
+			state.thinking = false;
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchChat.pending, (state) => {
@@ -115,5 +122,5 @@ export const chatSlice = createSlice({
 	},
 });
 
-export const { update } = chatSlice.actions;
+export const { update, startThinking, stopThinking } = chatSlice.actions;
 export default chatSlice.reducer;
