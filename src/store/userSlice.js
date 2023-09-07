@@ -3,6 +3,7 @@ import supabase from "../helper/supabase";
 
 const initialState = { data: [], loading: false, error: null };
 
+// To fetch user data from supabase
 export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
 	const {
 		data: { user },
@@ -15,6 +16,7 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
 	}
 });
 
+// To logout user
 export const logoutUser = createAsyncThunk("user/logoutUser", async () => {
 	const { error } = await supabase.auth.signOut();
 	if (error) {
