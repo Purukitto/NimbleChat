@@ -15,6 +15,6 @@ export default function getAQIInfo(aqiValue) {
 	} else if (aqiValue <= 500) {
 		return { healthConcern: "Severe", color: "#DE0000" };
 	} else {
-		return { healthConcern: "Invalid AQI", color: "Unknown" };
+		return { healthConcern: "Invalid AQI", color: "#808080" };
 	}
 }
