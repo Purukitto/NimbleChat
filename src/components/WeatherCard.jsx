@@ -7,11 +7,13 @@ import getIndianAQI from "../helper/getIndianAQI";
 export default function WeatherCard({ weatherData }) {
 	const cardType = weatherData.type;
 	const prettyDate = dayjs();
-	const { healthConcern, color } =
-		weatherData.type === "aqi" && getAQIInfo(weatherData.list[0].main.aqi);
 	const indianAQI =
 		weatherData.type === "aqi" &&
 		getIndianAQI(weatherData.list[0].components);
+	const { healthConcern, color } =
+		weatherData.type === "aqi" && getAQIInfo(indianAQI);
+
+	console.log(weatherData);
 
 	switch (cardType) {
 		case "weather":
@@ -23,7 +25,8 @@ export default function WeatherCard({ weatherData }) {
 								{dayName(prettyDate.day())}
 							</div>
 							<div className=" text-sm">
-								{prettyDate.format("DD/MM/YY")}
+								{prettyDate.format("DD/MM")}{" "}
+								{prettyDate.format("HH:mmA")}
 							</div>
 							<div className="flex flex-row items-baseline">
 								<MapPinIcon className="h-4 w-4 text-slate-400 mt-3 mr-1" />{" "}
@@ -31,17 +34,22 @@ export default function WeatherCard({ weatherData }) {
 							</div>
 						</div>
 						<div>
-							<img
-								src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`}
-								alt="weather icon"
-								className=" h-14 w-14"
-							/>
-							<h2 className=" text-2xl font-semibold">
-								{`${(weatherData.main.temp - 273.15).toFixed(
-									2
-								)}`}
-								°C
-							</h2>
+							<div className="flex items-center">
+								<img
+									src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`}
+									alt="weather icon"
+									className=" h-14 w-14"
+								/>
+								<h2 className=" text-2xl font-semibold">
+									{`${(
+										weatherData.main.temp - 273.15
+									).toFixed(2)}`}
+									°C
+								</h2>
+							</div>
+							Feels like{" "}
+							{(weatherData.main.feels_like - 273.15).toFixed(2)}
+							°C.
 							{weatherData.weather[0].description}
 						</div>
 					</div>
