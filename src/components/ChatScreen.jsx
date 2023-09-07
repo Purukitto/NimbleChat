@@ -5,6 +5,7 @@ import Chat from "./Chat";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser, logoutUser } from "../store/userSlice";
 import toast from "react-hot-toast";
+import { Dna } from "react-loader-spinner";
 
 export default function ChatScreen() {
 	let navigate = useNavigate();
@@ -55,9 +56,19 @@ export default function ChatScreen() {
 							</h1>
 						</div>
 					</div>
-					<h1 className="flex-1 text-center mt-10 text-xl font-semibold my-2 ml-8">
+					<div className="flex-1 text-center mt-10 text-lg font-semibold">
 						Please wait while we log you in...
-					</h1>
+						<div className="flex flex-1 justify-center">
+							<Dna
+								visible={true}
+								height="80"
+								width="80"
+								ariaLabel="dna-loading"
+								wrapperStyle={{}}
+								wrapperClass="dna-wrapper"
+							/>
+						</div>
+					</div>
 				</div>
 			)}
 		</>

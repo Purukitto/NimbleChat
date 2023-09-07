@@ -7,3 +7,10 @@
 		@apply p-4 bg-gray-700/50 rounded-lg max-w-sm hover:bg-gray-900/60 hover:cursor-pointer;
 	}
 }
+
+svg.dna-wrapper circle:nth-child(odd) {
+	fill: #FFFFFF !important;
+}
+svg.dna-wrapper circle:nth-child(even) {
+	fill: #c4d7ff !important;
+}

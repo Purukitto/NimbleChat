@@ -3,6 +3,7 @@ import Message from "./Message";
 import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchChat } from "../store/chatSlice";
+import { Dna } from "react-loader-spinner";
 
 export default function Chat() {
 	const chat = useSelector((state) => state.chat);
@@ -36,19 +37,31 @@ export default function Chat() {
 						</>
 					) : (
 						<>
-							<p className="mt-10 text-xl text-center text-white">
+							<p className="mt-10 text-lg text-center text-white">
 								Enter promt below to get started!
 							</p>
 							<ArrowDownCircleIcon className="h-10 w-10 mx-auto mt-5 animate-bounce text-white" />
 						</>
 					)
 				) : (
-					<p className="mt-10 text-xl text-center text-white">
-						Loading messages...
-					</p>
+					<>
+						<p className="mt-10 text-lg text-center text-white">
+							Loading messages...
+						</p>
+						<div className="flex flex-1 justify-center">
+							<Dna
+								visible={true}
+								height="80"
+								width="80"
+								ariaLabel="dna-loading"
+								wrapperStyle={{}}
+								wrapperClass="dna-wrapper"
+							/>
+						</div>
+					</>
 				)
 			) : (
-				<p className="mt-10 text-xl text-center text-white">
+				<p className="mt-10 text-lg text-center text-white">
 					Some error occured. Please refresh or try again later.
 				</p>
 			)}
