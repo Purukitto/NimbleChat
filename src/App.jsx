@@ -7,6 +7,7 @@ import Main from "./layout/Main";
 import Home from "./components/Home";
 import ChatScreen from "./components/ChatScreen";
 
+// Router
 const router = createBrowserRouter([
 	{
 		path: "/",
