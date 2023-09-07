@@ -1,15 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import supabase from "../helper/supabase";
 
-const initialState = { messages: [], loading: false, error: "" };
+const initialState = { messages: [], loading: false, error: null };
 
 export const fetchChat = createAsyncThunk("chat/fetchChat", async (chatID) => {
-	const chat = await supabase
+	const { data, error } = await supabase
 		.from("chatstream")
 		.select("*")
 		.eq("chat_id", chatID)
 		.order("id", { ascending: true });
-	return chat.data;
+	if (error) throw new Error(error);
+	else return data;
 });
 
 // Send user message to database
@@ -30,7 +31,7 @@ export const sendMessage = createAsyncThunk(
 			])
 			.select();
 
-		if (error) throw new Error(error.message);
+		if (error) throw new Error(error);
 		else return data[0];
 	}
 );
@@ -75,7 +76,7 @@ export const chatSlice = createSlice({
 	extraReducers: (builder) => {
 		builder.addCase(fetchChat.pending, (state) => {
 			state.loading = true;
-			state.error = "";
+			state.error = null;
 		});
 
 		builder.addCase(fetchChat.fulfilled, (state, action) => {
@@ -85,11 +86,11 @@ export const chatSlice = createSlice({
 
 		builder.addCase(fetchChat.rejected, (state, action) => {
 			state.loading = false;
-			// state.error = action.error.message; TODO
+			state.error = action.error.message;
 		});
 
 		builder.addCase(sendMessage.pending, (state) => {
-			state.error = "";
+			state.error = null;
 			state.loading = true;
 		});
 
@@ -100,11 +101,11 @@ export const chatSlice = createSlice({
 
 		builder.addCase(sendMessage.rejected, (state, action) => {
 			state.loading = false;
-			// state.error = action.error.message; TODO
+			state.error = action.error.message;
 		});
 
 		builder.addCase(updateMessage.pending, (state) => {
-			state.error = "";
+			state.error = null;
 			state.loading = true;
 		});
 
@@ -114,7 +115,7 @@ export const chatSlice = createSlice({
 
 		builder.addCase(updateMessage.rejected, (state, action) => {
 			state.loading = false;
-			// state.error = action.error.message; TODO
+			state.error = action.error.message;
 		});
 	},
 });
