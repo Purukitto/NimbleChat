@@ -26,7 +26,7 @@ export default function ChatScreen() {
 
 	return (
 		<>
-			{user.data.user_metadata && (
+			{user.data.user_metadata && !user.error ? (
 				<div className="flex flex-col h-screen overflow-hidden">
 					<div className="flex justify-between bg-slate-950 text-white">
 						<div>
@@ -45,6 +45,21 @@ export default function ChatScreen() {
 					</div>
 					<Chat />
 					<ChatInput />
+				</div>
+			) : (
+				<div className="flex flex-col h-screen overflow-hidden">
+					<div className="flex justify-between bg-slate-950 text-white">
+						<div>
+							<h1 className="text-xl font-semibold my-2 ml-8">
+								Nimble Chat
+							</h1>
+							<div>
+								<h1 className="text-xl font-semibold my-2 ml-8">
+									Please wait while we log you in...
+								</h1>
+							</div>
+						</div>
+					</div>
 				</div>
 			)}
 		</>
