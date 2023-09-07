@@ -94,7 +94,7 @@ export default function ChatInput() {
 		<div className="flex-2 bg-transparent">
 			<form
 				onSubmit={handleSendMessage}
-				className="flex items-center justify-between py-3 space-x-6 my-2 lg:mx-auto mx-2 max-w-3xl bg-darkSecondary text-white p-5 rounded-lg focus:outline-none"
+				className="flex items-center justify-between py-3 space-x-6 my-2 md:mx-auto mx-2 max-w-3xl bg-darkSecondary text-white p-5 rounded-lg focus:outline-none"
 			>
 				<input
 					type="text"
