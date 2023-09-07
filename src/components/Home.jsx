@@ -1,6 +1,6 @@
-import { ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/outline";
 import supabase from "../helper/supabase";
 import { useDispatch } from "react-redux";
+import { CloudIcon } from "@heroicons/react/24/solid";
 
 export default function Home() {
 	const dispatch = useDispatch();
@@ -21,8 +21,8 @@ export default function Home() {
 			<h1 className="text-4xl font-bold mb-20">Nimble Chat</h1>
 			<div className="text-center">
 				<div className="flex flex-col items-center justify-center mb-5">
-					<ChatBubbleLeftEllipsisIcon className=" h-7 w-7" />
-					<h2>Examples</h2>
+					<CloudIcon className=" h-7 w-7" />
+					<h2>Example Prompts</h2>
 				</div>
 				<div className="space-y-2">
 					<p className="infoText">
