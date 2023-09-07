@@ -4,6 +4,7 @@ import ChatInput from "./ChatInput";
 import Chat from "./Chat";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser, logoutUser } from "../store/userSlice";
+import toast from "react-hot-toast";
 
 export default function ChatScreen() {
 	let navigate = useNavigate();
@@ -11,14 +12,12 @@ export default function ChatScreen() {
 	const user = useSelector((state) => state.user);
 
 	useEffect(() => {
-		dispatch(fetchUser());
+		dispatch(fetchUser()).then((res) => {
+			if (res.error) {
+				navigate("/");
+			} else toast.success("Logged in successfully! 🎉");
+		});
 	}, []);
-
-	useEffect(() => {
-		if (!user.loading && user.error) {
-			navigate("/");
-		}
-	}, [user.data]);
 
 	const handleLogout = () => {
 		dispatch(logoutUser());
