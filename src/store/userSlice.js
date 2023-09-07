@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import supabase from "../helper/supabase";
 
-const initialState = { data: [], loading: false, error: "" };
+const initialState = { data: [], loading: false, error: null };
 
 export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
 	const {
@@ -29,7 +29,7 @@ export const userSlice = createSlice({
 	extraReducers: (builder) => {
 		builder.addCase(fetchUser.pending, (state) => {
 			state.loading = true;
-			state.error = "";
+			state.error = null;
 		});
 		builder.addCase(fetchUser.fulfilled, (state, action) => {
 			state.loading = false;
@@ -42,7 +42,7 @@ export const userSlice = createSlice({
 
 		builder.addCase(logoutUser.pending, (state) => {
 			state.loading = true;
-			state.error = "";
+			state.error = null;
 		});
 		builder.addCase(logoutUser.fulfilled, (state, action) => {
 			state.loading = false;
