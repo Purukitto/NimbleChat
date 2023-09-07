@@ -4,7 +4,6 @@ import supabase from "../helper/supabase";
 const initialState = {
 	messages: [],
 	loading: false,
-	tempLoad: false,
 	error: null,
 };
 
@@ -96,30 +95,21 @@ export const chatSlice = createSlice({
 
 		builder.addCase(sendMessage.pending, (state) => {
 			state.error = null;
-			state.tempLoad = true;
 		});
 
 		builder.addCase(sendMessage.fulfilled, (state, action) => {
-			state.tempLoad = false;
 			state.messages = [...state.messages, action.payload];
 		});
 
 		builder.addCase(sendMessage.rejected, (state, action) => {
-			state.tempLoad = false;
 			state.error = action.error.message;
 		});
 
 		builder.addCase(updateMessage.pending, (state) => {
 			state.error = null;
-			state.tempLoad = true;
-		});
-
-		builder.addCase(updateMessage.fulfilled, (state) => {
-			state.tempLoad = false;
 		});
 
 		builder.addCase(updateMessage.rejected, (state, action) => {
-			state.tempLoad = false;
 			state.error = action.error.message;
 		});
 	},

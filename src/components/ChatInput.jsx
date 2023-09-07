@@ -1,7 +1,13 @@
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { sendMessage, update, updateMessage } from "../store/chatSlice";
+import {
+	sendMessage,
+	startThinking,
+	stopThinking,
+	update,
+	updateMessage,
+} from "../store/chatSlice";
 import nbxCall from "../helper/nbxCall";
 import parseInput from "../helper/parseInput";
 import processWeather from "../helper/processWeather";
@@ -38,8 +44,13 @@ export default function ChatInput() {
 		if (["weather", "forecast", "aqi"].includes(action) && location) {
 			const processedWeather = await processWeather(location, action);
 			const messageObject = { weatherData: processedWeather };
-			dispatch(sendMessage({ message: messageObject, user: botUser }));
+			await dispatch(startThinking());
+			await dispatch(
+				sendMessage({ message: messageObject, user: botUser })
+			);
+			await dispatch(stopThinking());
 		} else {
+			await dispatch(startThinking());
 			const { payload } = await dispatch(
 				sendMessage({ message: "", user: botUser })
 			);
@@ -65,6 +76,8 @@ export default function ChatInput() {
 					}
 				}
 			});
+
+			await dispatch(stopThinking());
 		}
 	};
 
