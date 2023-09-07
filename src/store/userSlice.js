@@ -18,7 +18,7 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
 export const logoutUser = createAsyncThunk("user/logoutUser", async () => {
 	const { error } = await supabase.auth.signOut();
 	if (error) {
-		throw error;
+		throw new Error(error);
 	}
 });
 
@@ -37,7 +37,7 @@ export const userSlice = createSlice({
 		});
 		builder.addCase(fetchUser.rejected, (state, action) => {
 			state.loading = false;
-			// state.error = action.error.message; TODO
+			state.error = action.error.message;
 		});
 
 		builder.addCase(logoutUser.pending, (state) => {
@@ -50,7 +50,7 @@ export const userSlice = createSlice({
 		});
 		builder.addCase(logoutUser.rejected, (state, action) => {
 			state.loading = false;
-			// state.error = action.error.message; TODO
+			state.error = action.error.message;
 		});
 	},
 });
