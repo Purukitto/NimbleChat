@@ -8,6 +8,7 @@ const initialState = {
 	error: null,
 };
 
+// Fetch chat messages from database
 export const fetchChat = createAsyncThunk("chat/fetchChat", async (chatID) => {
 	const { data, error } = await supabase
 		.from("chatstream")
@@ -15,6 +16,7 @@ export const fetchChat = createAsyncThunk("chat/fetchChat", async (chatID) => {
 		.eq("chat_id", chatID)
 		.limit(50) // limit to 50 messages
 		.order("id", { ascending: true });
+
 	if (error) throw new Error(error);
 	else return data;
 });
