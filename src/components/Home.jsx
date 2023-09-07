@@ -15,23 +15,46 @@ export default function Home() {
 		});
 	};
 
+	const handleCopy = (text) => async () => {
+		await navigator.clipboard.writeText(text);
+	};
+
 	return (
 		<div className="flex flex-col items-center justify-center h-screen px-2 text-white">
-			<img src="https://cdn-icons-png.flaticon.com/512/9231/9231625.png" className="h-20 w-20" />
+			<img
+				src="https://cdn-icons-png.flaticon.com/512/9231/9231625.png"
+				className="h-20 w-20"
+			/>
 			<h1 className="text-4xl font-bold mb-20">Nimble Chat</h1>
 			<div className="text-center">
 				<div className="flex flex-col items-center justify-center mb-5">
 					<CloudIcon className=" h-7 w-7" />
-					<h2>Example Prompts</h2>
+					<h2 className="font-semibold text-lg">Example Prompts</h2>
+					<p>Click on a prompt to copy it to your clipboard! 📋</p>
 				</div>
 				<div className="space-y-2">
-					<p className="infoText">
+					<p
+						className="infoText"
+						onClick={handleCopy(
+							"Who are you? How can you help me?"
+						)}
+					>
 						Who are you? How can you help me?
 					</p>
-					<p className="infoText">
+					<p
+						className="infoText"
+						onClick={handleCopy(
+							"What is the weather like in Bengaluru?"
+						)}
+					>
 						What is the weather like in Bengaluru?
 					</p>
-					<p className="infoText">
+					<p
+						className="infoText"
+						onClick={handleCopy(
+							"Give me the forecast for Bengaluru."
+						)}
+					>
 						Give me the forecast for Bengaluru.
 					</p>
 				</div>
