@@ -1,19 +1,24 @@
 export default function parseInput(input) {
-	// Normalize the response to lowercase for case-insensitive matching
-	const normalisedInput = input.toLowerCase();
+	// Check if the input contains any weather-related keywords
+	const keywordPattern =
+		/(weather|forecast|temperature|rain|snow|aqi|air quality)/i;
 
-	// Check for keywords related to weather
-	if (
-		normalisedInput.includes("weather") ||
-		normalisedInput.includes("forecast")
-	) {
+	const intentMatch = input.match(keywordPattern);
+
+	if (intentMatch && intentMatch[0]) {
 		// Use a regular expression to extract location information
-		const locationMatch = normalisedInput.match(/\b(?:in|for)\s+(\w+)/);
+		const locationMatch = input.match(/(?:in|for)\s+([A-Za-z\s-]+)/i);
 		if (locationMatch && locationMatch[1]) {
+			const intent = intentMatch[0].trim().toLowerCase();
 			const location = locationMatch[1].trim();
-			const action = normalisedInput.includes("weather")
-				? "weather"
-				: "forecast";
+			console.log(" Intent: ", intent);
+			const action =
+				intent === "aqi" || intent === "air quality"
+					? "aqi"
+					: intent === "forecast"
+					? "forecast"
+					: "weather";
+
 			return { location, action };
 		}
 	}
