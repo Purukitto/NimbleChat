@@ -4,7 +4,7 @@ import { Toaster } from "react-hot-toast";
 export default function Main() {
 	return (
 		<div className="flex">
-			<div className="bg-[#343541] flex-1 h-screen">
+			<div className="bg-mainBackground flex-1 h-screen">
 				<Outlet />
 				<Toaster
 					position="top-center"
