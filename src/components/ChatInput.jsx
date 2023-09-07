@@ -88,7 +88,7 @@ export default function ChatInput() {
 				<button
 					disabled={!promt || chat.loading}
 					type="submit"
-					className="bg-green-400 hover:opacity-70px-4 w-12 py-2 rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
+					className="bg-green-400 flex justify-center hover:opacity-70px-4 w-12 py-2 rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
 				>
 					<PaperAirplaneIcon className="h-6 w-6 -rotate-45" />
 				</button>
