@@ -1,6 +1,4 @@
 export default function getIndianAQI(pollutants) {
-	console.log(pollutants);
-
 	// Define the AQI breakpoints and coefficients for each pollutant
 	const pollutantInfo = {
 		co: {

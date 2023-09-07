@@ -12,7 +12,6 @@ export default function parseInput(input) {
 		if (locationMatch && locationMatch[1]) {
 			const intent = intentMatch[0].trim().toLowerCase();
 			const location = locationMatch[1].trim();
-			console.log(" Intent: ", intent);
 			const action =
 				intent === "aqi" || intent === "air quality"
 					? "aqi"
