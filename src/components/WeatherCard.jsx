@@ -163,9 +163,10 @@ export default function WeatherCard({ weatherData }) {
 					</div>
 					<div className="mt-10">
 						<div
-							className={`flex flex-col mb-5 font-semibold h-28 w-28 items-center justify-center bg-[${color}] rounded-full`}
+							className={`flex flex-col mb-5 font-semibold h-28 w-28 items-center justify-center rounded-full`}
+							style={{ backgroundColor: color }}
 						>
-							<h3 className="text-4xl">{indianAQI}</h3>
+							<h3 className="text-3xl">{indianAQI.toFixed(2)}</h3>
 							<h5 className="text-lg">AQI</h5>
 						</div>
 						<div className={`text-xl font-bold text-[${color}]`}>
