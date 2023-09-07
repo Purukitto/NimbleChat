@@ -7,7 +7,7 @@ export default function parseInput(input) {
 
 	if (intentMatch && intentMatch[0]) {
 		// Use a regular expression to extract location information
-		const locationMatch = input.match(/(?:in|for|of)\s+([A-Za-z\s-]+)/i);
+		const locationMatch = input.match(/\b(?:in|for|of)\s+([A-Za-z\s-]+)/i);
 		// TODO: No location, get location from user's IP address
 		if (locationMatch && locationMatch[1]) {
 			const intent = intentMatch[0].trim().toLowerCase();
