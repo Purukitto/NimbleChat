@@ -1,7 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import supabase from "../helper/supabase";
 
-const initialState = { messages: [], loading: false, error: null };
+const initialState = {
+	messages: [],
+	loading: false,
+	tempLoad: false,
+	error: null,
+};
 
 export const fetchChat = createAsyncThunk("chat/fetchChat", async (chatID) => {
 	const { data, error } = await supabase
@@ -91,30 +96,30 @@ export const chatSlice = createSlice({
 
 		builder.addCase(sendMessage.pending, (state) => {
 			state.error = null;
-			state.loading = true;
+			state.tempLoad = true;
 		});
 
 		builder.addCase(sendMessage.fulfilled, (state, action) => {
-			state.loading = false;
+			state.tempLoad = false;
 			state.messages = [...state.messages, action.payload];
 		});
 
 		builder.addCase(sendMessage.rejected, (state, action) => {
-			state.loading = false;
+			state.tempLoad = false;
 			state.error = action.error.message;
 		});
 
 		builder.addCase(updateMessage.pending, (state) => {
 			state.error = null;
-			state.loading = true;
+			state.tempLoad = true;
 		});
 
 		builder.addCase(updateMessage.fulfilled, (state) => {
-			state.loading = false;
+			state.tempLoad = false;
 		});
 
 		builder.addCase(updateMessage.rejected, (state, action) => {
-			state.loading = false;
+			state.tempLoad = false;
 			state.error = action.error.message;
 		});
 	},
