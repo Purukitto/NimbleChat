@@ -1,4 +1,5 @@
 export default async function nbxCall(input, messageCallback) {
+	// API call to NBox AI
 	const response = await fetch(
 		"https://cors-anywhere.herokuapp.com/https://chat.nbox.ai/api/chat/completions",
 		{
@@ -29,18 +30,18 @@ export default async function nbxCall(input, messageCallback) {
 	const rs = response.body; // This is a ReadableStream
 	const reader = rs.getReader();
 	const decoder = new TextDecoder("utf-8");
-	let message = "";
+	let message = ""; // message to be displayed
 
 	while (true) {
 		const { value, done } = await reader.read();
 
-		if (done) break;
+		if (done) break; // if done, break out of loop
 
 		const chunk = decoder.decode(value, { stream: true });
-		const payloads = chunk.toString().split("\n\n");
+		const payloads = chunk.toString().split("\n\n"); // split the decoded chunks by new line
 		for (const payload of payloads) {
-			// if string includes '[DONE]'
 			if (payload.includes("[DONE]")) {
+				// if the payload includes [DONE], break out of loop
 				messageCallback(false);
 				break;
 			}
@@ -54,6 +55,7 @@ export default async function nbxCall(input, messageCallback) {
 						messageCallback(message);
 					}
 				} catch (error) {
+					// TODO: Handle this error
 					console.log(
 						`Error with JSON.parse and ${payload}.\n${error}`
 					);
