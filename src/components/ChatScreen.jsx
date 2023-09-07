@@ -14,6 +14,12 @@ export default function ChatScreen() {
 		dispatch(fetchUser());
 	}, []);
 
+	useEffect(() => {
+		if (!user.loading && user.error) {
+			navigate("/");
+		}
+	}, [user.data]);
+
 	const handleLogout = () => {
 		dispatch(logoutUser());
 		navigate("/");
