@@ -10,8 +10,12 @@ export default function WeatherCard({ weatherData }) {
 	const indianAQI =
 		weatherData.type === "aqi" &&
 		getIndianAQI(weatherData.list[0].components);
+		
 	const { healthConcern, color } =
 		weatherData.type === "aqi" && getAQIInfo(indianAQI);
+
+	if (weatherData.type === "aqi")
+		console.log(indianAQI, healthConcern, color);
 
 	switch (cardType) {
 		case "weather":
@@ -171,13 +175,16 @@ export default function WeatherCard({ weatherData }) {
 					</div>
 					<div className="mt-10">
 						<div
-							className={`flex flex-col mb-5 font-semibold h-28 w-28 items-center justify-center rounded-full`}
+							className={`flex flex-col mb-5 font-semibold h-28 w-28 items-center justify-center rounded-full text-darkBackground`}
 							style={{ backgroundColor: color }}
 						>
 							<h3 className="text-3xl">{indianAQI.toFixed(2)}</h3>
 							<h5 className="text-lg">AQI</h5>
 						</div>
-						<div className={`text-xl font-bold text-[${color}]`}>
+						<div
+							className={`text-xl font-bold`}
+							style={{ color: color }}
+						>
 							{healthConcern}
 						</div>
 					</div>
