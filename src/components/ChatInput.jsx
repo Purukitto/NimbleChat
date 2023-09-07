@@ -94,7 +94,7 @@ export default function ChatInput() {
 		<div className="flex-2 bg-transparent">
 			<form
 				onSubmit={handleSendMessage}
-				className="flex items-center justify-between py-3 space-x-6 my-2 lg:mx-auto mx-2 max-w-3xl bg-[#2b2b2b] text-white p-5 rounded-lg focus:outline-none"
+				className="flex items-center justify-between py-3 space-x-6 my-2 lg:mx-auto mx-2 max-w-3xl bg-darkSecondary text-white p-5 rounded-lg focus:outline-none"
 			>
 				<input
 					type="text"
@@ -107,7 +107,7 @@ export default function ChatInput() {
 				<button
 					disabled={!promt || chat.loading}
 					type="submit"
-					className="bg-green-400 flex justify-center hover:opacity-70px-4 w-12 py-2 rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
+					className="bg-green flex justify-center hover:opacity-70px-4 w-12 py-2 rounded disabled:bg-disabled disabled:cursor-not-allowed"
 				>
 					<PaperAirplaneIcon className="h-6 w-6 -rotate-45" />
 				</button>
