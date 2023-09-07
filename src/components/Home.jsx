@@ -1,17 +1,14 @@
 import supabase from "../helper/supabase";
-import { useDispatch } from "react-redux";
 import { CloudIcon } from "@heroicons/react/24/solid";
 import toast from "react-hot-toast";
 
 export default function Home() {
-	const dispatch = useDispatch();
-
 	const handleLogin = async () => {
 		await supabase.auth.signInWithOAuth({
 			provider: "github",
 			options: {
 				redirectTo: "https://jazzy-pavlova-932105.netlify.app/chat", // this is the url of the deployed app
-				// redirectTo: "http://127.0.0.1:5173/chat", // this is the url of localhost
+				// redirectTo: "http://127.0.0.1:5173/chat", // this is the url of localhost for testing
 			},
 		});
 	};

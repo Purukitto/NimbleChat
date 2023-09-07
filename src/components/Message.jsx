@@ -1,7 +1,8 @@
 import dayjs from "dayjs";
 import WeatherCard from "./WeatherCard";
 
-export default function Message({ id, message }) {
+export default function Message({ message }) {
+	// Check if message is from bot
 	const isBot = message.user.fName === "NBX Weather";
 
 	return (
@@ -20,7 +21,9 @@ export default function Message({ id, message }) {
 						</h4>
 					</div>
 					{message.text.startsWith(`{"weatherData":{`) ? (
-						<WeatherCard weatherData={JSON.parse(message.text).weatherData} />
+						<WeatherCard
+							weatherData={JSON.parse(message.text).weatherData}
+						/>
 					) : (
 						<p className="pt-1 text-sm">{message.text}</p>
 					)}

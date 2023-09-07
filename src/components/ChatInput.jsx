@@ -8,6 +8,8 @@ import {
 	update,
 	updateMessage,
 } from "../store/chatSlice";
+
+// Helpers
 import nbxCall from "../helper/nbxCall";
 import parseInput from "../helper/parseInput";
 import processWeather from "../helper/processWeather";
@@ -15,6 +17,7 @@ import processWeather from "../helper/processWeather";
 export default function ChatInput() {
 	const [promt, setPromt] = useState("");
 
+	// Redux
 	const user = useSelector((state) => state.user);
 	const chat = useSelector((state) => state.chat);
 	const dispatch = useDispatch();
@@ -22,14 +25,13 @@ export default function ChatInput() {
 	const handleSendMessage = async (e) => {
 		e.preventDefault();
 
-		const input = promt.trim(); // Remove whitespace
+		const input = promt.trim();
 		if (input.length === 0) return; // Don't send empty message
-		setPromt(""); // Clear input field
-
+		setPromt("");
 		// Send user message
 		await dispatch(sendMessage({ message: input, user: user.data }));
 
-		// Send bot message
+		// Create bot message
 		const botUser = {
 			id: user.data.id,
 			user_metadata: {
@@ -41,17 +43,21 @@ export default function ChatInput() {
 
 		await dispatch(startThinking()); // Toggle thinking animation
 
+		// Check if user input is a weather request
 		const { location, action } = parseInput(input);
 
+		// If user input is a weather request, process it
 		if (["weather", "forecast", "aqi"].includes(action) && location) {
 			const processedWeather = await processWeather(location, action);
 			if (processedWeather)
+				// If weather data is found, send it to the user
 				await dispatch(
 					sendMessage({
 						message: { weatherData: processedWeather },
 						user: botUser,
 					})
 				);
+			// If weather data is not found, send error message
 			else
 				await dispatch(
 					sendMessage({
@@ -61,6 +67,7 @@ export default function ChatInput() {
 					})
 				);
 		} else {
+			// If user input is not a weather request, send it to NBX API
 			const { payload } = await dispatch(
 				sendMessage({ message: "", user: botUser })
 			);
@@ -87,6 +94,7 @@ export default function ChatInput() {
 				}
 			});
 		}
+
 		dispatch(stopThinking()); // Toggle thinking animation
 	};
 

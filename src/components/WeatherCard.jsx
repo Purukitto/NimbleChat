@@ -6,16 +6,15 @@ import getIndianAQI from "../helper/getIndianAQI";
 
 export default function WeatherCard({ weatherData }) {
 	const cardType = weatherData.type;
-	const prettyDate = dayjs();
+	const prettyDate = dayjs(); // Default to today's date
+	// Get IAQI for India by calculating the weighted average of the individual pollutants
 	const indianAQI =
 		weatherData.type === "aqi" &&
 		getIndianAQI(weatherData.list[0].components);
-		
+
+	// Get health concern and color for the AQI based on the IAQI
 	const { healthConcern, color } =
 		weatherData.type === "aqi" && getAQIInfo(indianAQI);
-
-	if (weatherData.type === "aqi")
-		console.log(indianAQI, healthConcern, color);
 
 	switch (cardType) {
 		case "weather":
