@@ -25,7 +25,7 @@ export default function Message({ message }) {
 							weatherData={JSON.parse(message.text).weatherData}
 						/>
 					) : (
-						<p className="pt-1">{message.text}</p>
+						<p className="pt-1 whitespace-pre-wrap">{message.text}</p>
 					)}
 				</div>
 			</div>
