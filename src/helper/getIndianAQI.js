@@ -1,7 +1,7 @@
 export default function getIndianAQI(pollutants) {
 	// Remove no from pollutants
 	delete pollutants.no;
-	delete pollutants.nh3
+	delete pollutants.nh3;
 
 	// Define the AQI breakpoints and coefficients for each pollutant
 	const pollutantInfo = {
@@ -36,8 +36,8 @@ export default function getIndianAQI(pollutants) {
 		no2: 1 / 1880,
 		o3: 1 / 1960,
 		so2: 1 / 2620,
-		pm2_5: 1 / 20, // No conversion needed for PM2.5
-		pm10: 1 / 20, // No conversion needed for PM10
+		pm2_5: 1, // No conversion needed for PM2.5
+		pm10: 1, // No conversion needed for PM10
 	};
 
 	// Initialize an array to store the calculated AQI values for each pollutant
@@ -68,6 +68,7 @@ export default function getIndianAQI(pollutants) {
 			info.coefficients[index];
 
 		// Push the calculated AQI to the array
+		if (isNaN(aqi)) aqi = 500;
 		aqiValues.push(aqi);
 	}
 
