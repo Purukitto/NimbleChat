@@ -9,7 +9,7 @@ export default function Home() {
 		await supabase.auth.signInWithOAuth({
 			provider: "github",
 			options: {
-				redirectTo: "http://127.0.0.1:5173/chat",
+				redirectTo: "https://jazzy-pavlova-932105.netlify.app/chat",
 			},
 		});
 	};
@@ -26,8 +26,12 @@ export default function Home() {
 					<p className="infoText">
 						Who are you? How can you help me?
 					</p>
-					<p className="infoText">What is the weather like in Bengaluru?</p>
-					<p className="infoText">Give me the forecast for Bengaluru.</p>
+					<p className="infoText">
+						What is the weather like in Bengaluru?
+					</p>
+					<p className="infoText">
+						Give me the forecast for Bengaluru.
+					</p>
 				</div>
 			</div>
 			<div className=" mt-24">
