@@ -79,34 +79,42 @@ export default function WeatherCard({ weatherData }) {
 			</div>
 		</div>
 	) : (
-		<div className="flex flex-col bg-slate-950 p-5 rounded-lg mt-3">
-			<div className=" font-bold">{dayName(prettyDate.day())}</div>
-			<div className=" text-sm">{prettyDate.format("DD/MM/YY")}</div>
-			<div className="flex flex-row items-baseline">
-				<MapPinIcon className="h-4 w-4 text-slate-400 mt-3 mr-1" />{" "}
-				{weatherData.city.name}, {weatherData.city.country}
+		<>
+			<p>
+				The weather forecast for {weatherData.city.name} in 3Hr
+				increments is as follows:{" "}
+			</p>
+			<div className="flex flex-col bg-slate-950 p-5 rounded-lg mt-3">
+				<div className=" font-bold">{dayName(prettyDate.day())}</div>
+				<div className=" text-sm">{prettyDate.format("DD/MM/YY")}</div>
+				<div className="flex flex-row items-baseline">
+					<MapPinIcon className="h-4 w-4 text-slate-400 mt-3 mr-1" />{" "}
+					{weatherData.city.name}, {weatherData.city.country}
+				</div>
+				<div className="flex mt-8 flex-wrap	">
+					{weatherData.list.slice(0, 10).map((item, ind) => (
+						<div
+							key={ind}
+							className="bg-slate-800 p-2 m-1 w-32 h-36 rounded"
+						>
+							<h2 className="text-sm text-slate-300">
+								{dayjs(item.dt_txt).format("DD/MM HH:mmA")}
+							</h2>
+							<img
+								src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
+								alt="weather icon"
+								className=" h-14 w-14"
+							/>
+							<p className="text-sm">
+								{item.weather[0].description}
+							</p>
+							<h2 className=" text-xl font-semibold">
+								{`${(item.main.temp - 273.15).toFixed(2)}`}°C
+							</h2>
+						</div>
+					))}
+				</div>
 			</div>
-			<div className="flex mt-8 flex-wrap	">
-				{weatherData.list.slice(0, 10).map((item, ind) => (
-					<div
-						key={ind}
-						className="bg-slate-800 p-2 m-1 w-32 h-36 rounded"
-					>
-						<h2 className="text-sm text-slate-300">
-							{dayjs(item.dt_txt).format("DD/MM HH:mmA")}
-						</h2>
-						<img
-							src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
-							alt="weather icon"
-							className=" h-14 w-14"
-						/>
-						<p className="text-sm">{item.weather[0].description}</p>
-						<h2 className=" text-xl font-semibold">
-							{`${(item.main.temp - 273.15).toFixed(2)}`}°C
-						</h2>
-					</div>
-				))}
-			</div>
-		</div>
+		</>
 	);
 }
