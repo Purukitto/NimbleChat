@@ -13,6 +13,7 @@ import {
 import nbxCall from "../helper/nbxCall";
 import parseInput from "../helper/parseInput";
 import processWeather from "../helper/processWeather";
+import processMessagesToContext from "../helper/processMessagesToContext";
 
 export default function ChatInput() {
 	const [promt, setPromt] = useState("");
@@ -75,24 +76,28 @@ export default function ChatInput() {
 			let lastValidResponse = null; // Initialize a variable to store the last valid response
 
 			// Use helper function to call NBX API and update bot message
-			nbxCall(input, async (response) => {
-				if (response) {
-					dispatch(update({ payload, response }));
-					lastValidResponse = response; // Update lastValidResponse with the current response
-				} else {
-					if (lastValidResponse !== null) {
-						dispatch(
-							updateMessage({
-								id: payload.id,
-								message: lastValidResponse,
-							})
-						);
+			nbxCall(
+				input,
+				processMessagesToContext(chat.messages),
+				async (response) => {
+					if (response) {
+						dispatch(update({ payload, response }));
+						lastValidResponse = response; // Update lastValidResponse with the current response
 					} else {
-						// Handle the case where there is no valid response yet
-						console.error("No valid response available.");
+						if (lastValidResponse !== null) {
+							dispatch(
+								updateMessage({
+									id: payload.id,
+									message: lastValidResponse,
+								})
+							);
+						} else {
+							// Handle the case where there is no valid response yet
+							console.error("No valid response available.");
+						}
 					}
 				}
-			});
+			);
 		}
 
 		dispatch(stopThinking()); // Toggle thinking animation

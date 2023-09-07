@@ -1,4 +1,27 @@
-export default async function nbxCall(input, messageCallback) {
+import trimContextMessages from "./trimContextMessages";
+
+export default async function nbxCall(input, messages, messageCallback) {
+	const systemPrompt = `You are 'NBX Weather,' your trusted source for weather information! I'm here to provide you with the latest weather updates, forecasts, and air quality information. Feel free to ask me anything related to weather, air quality, or forecasts for one location at a time.
+	
+	You can use the following prompts:
+	- "What's the weather in <location>?"
+	- "Tell me the weather for <location>."
+	- "Give me the forecast of <location>."
+	- "What's the AQI of <location>?"
+	
+	Just mention a location, and I'll provide you with the relevant weather details. Ask away!`;
+
+	messages.push({ role: "user", content: input });
+
+	const messageArray = trimContextMessages(messages);
+
+	messageArray.unshift({
+		role: "system",
+		content: systemPrompt,
+	});
+
+	console.log(messageArray);
+
 	// API call to NBox AI
 	const response = await fetch(
 		"https://nocors-proxy-d63b3f09ff4c.herokuapp.com/https://chat.nbox.ai/api/chat/completions",
@@ -10,19 +33,10 @@ export default async function nbxCall(input, messageCallback) {
 			},
 			body: JSON.stringify({
 				temperature: 0.5,
-				messages: [
-					{
-						role: "system",
-						content:
-							"You are a weather bot named NBX Weather. Respond with one line answers when the topic is not about weather and urge them to ask about weather related queries.",
-					},
-					{
-						role: "user",
-						content: input,
-					},
-				],
+				messages: messageArray,
 				model: "llama-2-chat-13b-4k",
 				stream: true,
+				max_tokens: 1000,
 			}),
 		}
 	);

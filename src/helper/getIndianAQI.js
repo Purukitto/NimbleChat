@@ -70,8 +70,8 @@ export default function getIndianAQI(pollutants) {
 			info.coefficients[index];
 
 		// Push the calculated AQI to the array
-		if (isNaN(aqi)) aqi = 500;
-		aqiValues.push(aqi);
+		if (!isNaN(aqi)) aqiValues.push(aqi);
+		else aqiValues.push(500);
 	}
 
 	// The overall AQI is the maximum of all pollutant-specific AQI values
