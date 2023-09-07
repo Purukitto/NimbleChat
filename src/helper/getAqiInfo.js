@@ -1,4 +1,5 @@
 export default function getAQIInfo(aqiValue) {
+	// AQI Info from https://en.wikipedia.org/wiki/Air_quality_index#India
 	if (aqiValue >= 0 && aqiValue <= 50) {
 		return { healthConcern: "Good", color: "#00C564" };
 	} else if (aqiValue <= 100) {
@@ -11,9 +12,9 @@ export default function getAQIInfo(aqiValue) {
 	} else if (aqiValue <= 300) {
 		return { healthConcern: "Poor", color: "#FFA600" };
 	} else if (aqiValue <= 400) {
-		return { healthConcern: "Very Poor", color: "#FF0000" };
+		return { healthConcern: "Severe", color: "#FF0000" };
 	} else if (aqiValue <= 500) {
-		return { healthConcern: "Severe", color: "#DE0000" };
+		return { healthConcern: "Hazardous", color: "#DE0000" };
 	} else {
 		return { healthConcern: "Invalid AQI", color: "#808080" };
 	}
