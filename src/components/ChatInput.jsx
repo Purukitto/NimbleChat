@@ -36,8 +36,9 @@ export default function ChatInput() {
 		// TODO: Loading state for bot message
 
 		const { location, action } = parseInput(input);
+		console.log(location, action);
 
-		if ((action === "weather" || action === "forecast") && location) {
+		if (["weather", "forecast", "aqi"].includes(action) && location) {
 			const processedWeather = await processWeather(location, action);
 			const messageObject = { weatherData: processedWeather };
 			dispatch(sendMessage({ message: messageObject, user: botUser }));

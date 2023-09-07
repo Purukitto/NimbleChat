@@ -1,20 +1,19 @@
-import { json } from "react-router-dom";
-
 export default async function processWeather(location, action) {
+	const BASE_URL = "https://api.openweathermap.org";
 	const locationData = await fetch(
-		`https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${
+		`${BASE_URL}/geo/1.0/direct?q=${location}&limit=1&appid=${
 			import.meta.env.VITE_OPENWEATHERMAP_KEY
 		}`
 	).then((res) => res.json());
 
+	const WEATHER_URL = `${BASE_URL}/data/2.5`;
+
 	switch (action) {
 		case "weather":
 			return await fetch(
-				`https://api.openweathermap.org/data/2.5/weather?lat=${
-					locationData[0].lat
-				}&lon=${locationData[0].lon}&appid=${
-					import.meta.env.VITE_OPENWEATHERMAP_KEY
-				}`
+				`${WEATHER_URL}/weather?lat=${locationData[0].lat}&lon=${
+					locationData[0].lon
+				}&appid=${import.meta.env.VITE_OPENWEATHERMAP_KEY}`
 			)
 				.then((res) => res.json())
 				.then((res) => {
@@ -22,16 +21,25 @@ export default async function processWeather(location, action) {
 				});
 		case "forecast":
 			return await fetch(
-				`https://api.openweathermap.org/data/2.5/forecast?lat=${
-					locationData[0].lat
-				}&lon=${locationData[0].lon}&appid=${
-					import.meta.env.VITE_OPENWEATHERMAP_KEY
-				}`
+				`${WEATHER_URL}/forecast?lat=${locationData[0].lat}&lon=${
+					locationData[0].lon
+				}&appid=${import.meta.env.VITE_OPENWEATHERMAP_KEY}`
 			)
 				.then((res) => res.json())
 				.then((res) => {
 					return { ...res, type: "forecast" };
 				});
+		case "aqi":
+			return await fetch(
+				`${WEATHER_URL}/air_pollution?lat=${locationData[0].lat}&lon=${
+					locationData[0].lon
+				}&appid=${import.meta.env.VITE_OPENWEATHERMAP_KEY}`
+			)
+				.then((res) => res.json())
+				.then((res) => {
+					return { ...res, type: "aqi" };
+				});
+
 		default:
 			return null;
 	}
