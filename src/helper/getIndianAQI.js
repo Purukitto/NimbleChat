@@ -51,7 +51,6 @@ export default function getIndianAQI(pollutants) {
 			concentration *= conversionFactors[pollutant];
 		}
 
-		console.log(concentration);
 		// Determine the index corresponding to the concentration range
 		let index = 0;
 		while (
@@ -71,9 +70,6 @@ export default function getIndianAQI(pollutants) {
 		// Push the calculated AQI to the array
 		aqiValues.push(aqi);
 	}
-
-	console.log(pollutants);
-	console.log(aqiValues);
 
 	// The overall AQI is the maximum of all pollutant-specific AQI values
 	const overallAQI = Math.max(...aqiValues);
