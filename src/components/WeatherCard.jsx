@@ -13,8 +13,6 @@ export default function WeatherCard({ weatherData }) {
 	const { healthConcern, color } =
 		weatherData.type === "aqi" && getAQIInfo(indianAQI);
 
-	console.log(weatherData);
-
 	switch (cardType) {
 		case "weather":
 			return (
@@ -49,8 +47,11 @@ export default function WeatherCard({ weatherData }) {
 							</div>
 							Feels like{" "}
 							{(weatherData.main.feels_like - 273.15).toFixed(2)}
-							°C.
-							{weatherData.weather[0].description}
+							°C.{" "}
+							{weatherData.weather[0].description
+								.charAt(0)
+								.toUpperCase() +
+								weatherData.weather[0].description.slice(1)}
 						</div>
 					</div>
 					<div className="flex text-sm min-w-fit flex-col space-y-2 h-64 bg-slate-900 py-8 px-6 rounded-lg mt-3">
@@ -60,7 +61,7 @@ export default function WeatherCard({ weatherData }) {
 						</div>
 						<div className="flex">
 							<h4 className="font-semibold">Visibility</h4> :{" "}
-							{weatherData.visibility}m
+							{(weatherData.visibility/1000).toFixed(1)}km
 						</div>
 						<div className="flex">
 							<h4 className="font-semibold">Wind</h4> :{" "}
