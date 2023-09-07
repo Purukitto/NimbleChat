@@ -1,6 +1,7 @@
 import supabase from "../helper/supabase";
 import { useDispatch } from "react-redux";
 import { CloudIcon } from "@heroicons/react/24/solid";
+import toast from "react-hot-toast";
 
 export default function Home() {
 	const dispatch = useDispatch();
@@ -17,6 +18,7 @@ export default function Home() {
 
 	const handleCopy = (text) => async () => {
 		await navigator.clipboard.writeText(text);
+		toast("Prompt copied to clipboard! 📋");
 	};
 
 	return (
