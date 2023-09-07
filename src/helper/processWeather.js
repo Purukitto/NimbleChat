@@ -1,5 +1,6 @@
 export default async function processWeather(location, action) {
 	const BASE_URL = "https://api.openweathermap.org";
+
 	const locationData = await fetch(
 		`${BASE_URL}/geo/1.0/direct?q=${location}&limit=1&appid=${
 			import.meta.env.VITE_OPENWEATHERMAP_KEY
