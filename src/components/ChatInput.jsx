@@ -45,28 +45,49 @@ export default function ChatInput() {
 		await dispatch(startThinking()); // Toggle thinking animation
 
 		// Check if user input is a weather request
-		const { location, action } = parseInput(input);
+		const { weatherLocation, action } = parseInput(input);
 
 		// If user input is a weather request, process it
-		if (["weather", "forecast", "aqi"].includes(action) && location) {
-			const processedWeather = await processWeather(location, action);
-			if (processedWeather)
-				// If weather data is found, send it to the user
+		if (["weather", "forecast", "aqi"].includes(action)) {
+			if (weatherLocation) {
+				const processedWeather = await processWeather(
+					weatherLocation,
+					action
+				);
+				if (processedWeather)
+					// If weather data is found, send it to the user
+					await dispatch(
+						sendMessage({
+							message: { weatherData: processedWeather },
+							user: botUser,
+						})
+					);
+				// If weather data is not found, send error message
+				else
+					await dispatch(
+						sendMessage({
+							message:
+								"Sorry, I couldn't find that location. Please try again with another location.",
+							user: botUser,
+						})
+					);
+			} else {
+				const locationPrompt =
+					action === "weather"
+						? "in <location>"
+						: action === "forecast"
+						? "for <location>"
+						: "of <location>";
+				// If user input is a weather request but location is not found, send error message
 				await dispatch(
 					sendMessage({
-						message: { weatherData: processedWeather },
+						message: `It seems like you wanted to know about the ${
+							action === "aqi" ? "AQI" : action
+						} but didn't specify a location.😅\nPlease try again with a location.\n\nAppend '${locationPrompt}' at the end of your last message and you would be good to go!`,
 						user: botUser,
 					})
 				);
-			// If weather data is not found, send error message
-			else
-				await dispatch(
-					sendMessage({
-						message:
-							"Sorry, I couldn't find that location. Please try again with another location.",
-						user: botUser,
-					})
-				);
+			}
 		} else {
 			// If user input is not a weather request, send it to NBX API
 			const { payload } = await dispatch(

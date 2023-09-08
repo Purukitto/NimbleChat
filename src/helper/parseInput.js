@@ -8,21 +8,19 @@ export default function parseInput(input) {
 	if (intentMatch && intentMatch[0]) {
 		// Use a regular expression to extract location information
 		const locationMatch = input.match(/\b(?:in|for|of)\s+([A-Za-z\s-]+)/i);
-		// TODO: No location, get location from user's IP address
+		const intent = intentMatch[0].trim().toLowerCase();
+		const action =
+			intent === "aqi" || intent === "air quality"
+				? "aqi"
+				: intent === "forecast"
+				? "forecast"
+				: "weather";
 		if (locationMatch && locationMatch[1]) {
-			const intent = intentMatch[0].trim().toLowerCase();
-			const location = locationMatch[1].trim();
-			const action =
-				intent === "aqi" || intent === "air quality"
-					? "aqi"
-					: intent === "forecast"
-					? "forecast"
-					: "weather";
-
-			return { location, action };
-		}
+			// const location = locationMatch[1].trim();
+			return { weatherLocation: locationMatch[1].trim(), action };
+		} else return { weatherLocation: null, action };
 	}
 
 	// If no weather-related keywords or location were found, assume a general query
-	return { location: null, action: "general" };
+	return { weatherLocation: null, action: "general" };
 }
