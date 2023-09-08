@@ -1,3 +1,25 @@
+/*
+ * This file contains the chat slice of the Redux store.
+ *
+ * The chat slice contains the following state:
+ * 	- messages: An array of messages in the chat
+ * 	- prompt: The prompt to be sent to the bot
+ * 	- loading: A boolean indicating whether the chat is loading
+ * 	- thinking: A boolean indicating whether the NBox AI is thinking
+ * 	- error: An error message if any
+ *
+ * The chat slice contains the following actions:
+ * 	- update: Updates the message text in local state
+ * 	- startThinking: Sets the thinking state to true
+ * 	- stopThinking: Sets the thinking state to false
+ * 	- setPrompt: Sets the prompt to be sent to the NBox AI
+ *
+ * The chat slice contains the following thunks (async actions):
+ * 	- fetchChat: Fetches chat messages from the database
+ * 	- sendMessage: Sends a message to the database
+ * 	- updateMessage: Updates the message text in the database
+ */
+
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import supabase from "../helper/supabase";
 

@@ -1,3 +1,19 @@
+/*
+ * This file contains the redux slice for user
+ *
+ * The user slice contains the following state:
+ * 	- data: An array of user data
+ * 	- loading: A boolean indicating whether the user is loading
+ * 	- error: An error message if any
+ *
+ * The user slice contains the following actions:
+ * 	- none
+ *
+ * The user slice contains the following thunks (async actions):
+ * 	- fetchUser: Fetches user data from supabase
+ * 	- logoutUser: Logs out the user
+ */
+
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import supabase from "../helper/supabase";
 
