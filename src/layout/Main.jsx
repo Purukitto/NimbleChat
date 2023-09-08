@@ -1,3 +1,7 @@
+/*
+ * Layout for the website
+ */
+
 import { Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 

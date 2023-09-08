@@ -1,3 +1,7 @@
+/*
+* App Component
+*/
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // Layouts
