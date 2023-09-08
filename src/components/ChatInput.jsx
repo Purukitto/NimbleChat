@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	sendMessage,
+	setPrompt,
 	startThinking,
 	stopThinking,
 	update,
@@ -16,7 +17,7 @@ import processWeather from "../helper/processWeather";
 import processMessagesToContext from "../helper/processMessagesToContext";
 
 export default function ChatInput() {
-	const [promt, setPromt] = useState("");
+	// const [promt, setPromt] = useState("");
 
 	// Redux
 	const user = useSelector((state) => state.user);
@@ -26,9 +27,9 @@ export default function ChatInput() {
 	const handleSendMessage = async (e) => {
 		e.preventDefault();
 
-		const input = promt.trim();
+		const input = chat.prompt.trim();
 		if (input.length === 0) return; // Don't send empty message
-		setPromt("");
+		dispatch(setPrompt("")); // Clear input field
 		// Send user message
 		await dispatch(sendMessage({ message: input, user: user.data }));
 
@@ -134,12 +135,12 @@ export default function ChatInput() {
 					type="text"
 					placeholder="Type a message"
 					disabled={chat.loading}
-					value={promt}
-					onChange={(e) => setPromt(e.target.value)}
+					value={chat.prompt}
+					onChange={(e) => dispatch(setPrompt(e.target.value))}
 					className="flex-1 bg-transparent focus:outline-none"
 				/>
 				<button
-					disabled={!promt || chat.loading}
+					disabled={!prompt || chat.loading}
 					type="submit"
 					className="bg-green flex justify-center hover:opacity-70px-4 w-12 py-2 rounded disabled:bg-disabled disabled:cursor-not-allowed"
 				>

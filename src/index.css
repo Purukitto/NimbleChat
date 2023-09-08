@@ -4,14 +4,14 @@
 
 @layer components {
 	.infoText {
-		@apply p-4 bg-gray-700/50 rounded-lg max-w-sm hover:bg-gray-900/60 hover:cursor-pointer;
+		@apply px-6 py-4 bg-mainBackground rounded-lg text-xs border-white/30 border hover:bg-white/5 hover:cursor-pointer;
 	}
 }
 
 /* Custom scrollbar styling */
 * {
 	scrollbar-width: thin; /* Firefox */
-	scrollbar-color: #1F1F1F #343541; /* Firefox */
+	scrollbar-color: #1f1f1f #343541; /* Firefox */
 }
 
 *::-webkit-scrollbar {
@@ -23,7 +23,7 @@
 }
 
 *::-webkit-scrollbar-thumb {
-	background: #1F1F1F;
+	background: #1f1f1f;
 	border-radius: 5px;
 }
 
