@@ -9,6 +9,7 @@ import supabase from "../helper/supabase";
 import { ChevronDoubleDownIcon } from "@heroicons/react/24/solid";
 import toast from "react-hot-toast";
 import TypewriterComponent from "typewriter-effect";
+import MadeWithLove from "./MadeWithLove";
 
 export default function Home() {
 	const handleLogin = async () => {
@@ -30,7 +31,7 @@ export default function Home() {
 					/>
 					<h1 className="text-xl font-semibold">Nimble Chat</h1>
 				</div>
-				<div className="flex h-full items-center">
+				<div className="flex h-5/6 items-center">
 					<TypewriterComponent
 						options={{
 							strings: [
@@ -47,6 +48,7 @@ export default function Home() {
 						}}
 					/>
 				</div>
+				<MadeWithLove />
 			</div>
 			<div className="m-auto px-12 py-24 space-y-4">
 				<p className="text-center text-3xl font-semibold">
