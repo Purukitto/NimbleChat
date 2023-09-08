@@ -1,3 +1,13 @@
+/**
+ * @description -calculates the AQI (Air Quality Index) for a given set of pollutants.
+ *
+ * @param {object} pollutants	-object containing pollutants
+ * @returns {number} AQI
+ *
+ * @example
+ * getIndianAQI({ co: 0.5, no2: 0.5, o3: 0.5, so2: 0.5, pm2_5: 0.5, pm10: 0.5 }) // 500
+ */
+
 export default function getIndianAQI(pollutants) {
 	// Remove no and nh3 from pollutants
 	delete pollutants.no;

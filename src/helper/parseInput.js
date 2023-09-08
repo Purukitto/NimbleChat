@@ -1,3 +1,13 @@
+/**
+ * @description -parses user input to determine the weather location and action
+ *
+ * @param {string} input -user input
+ * @returns {object} -object containing weatherLocation and action
+ *
+ * @example
+ * parseInput("What is the weather in New York?") // { weatherLocation: "New York", action: "weather" }
+ */
+
 export default function parseInput(input) {
 	// Check if the input contains any weather-related keywords
 	const keywordPattern =

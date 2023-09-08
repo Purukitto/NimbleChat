@@ -1,3 +1,10 @@
+/**
+ * @description -trims messages to ensure that the total number of tokens is within the limit
+ * 
+ * @param {array} messages	-array of messages
+ * @returns {array} -array of messages
+ */
+
 import llamaTokenizer from "llama-tokenizer-js";
 
 const MAX_TOKENS = 4096 - 500; // Subtract 500 for new tokens

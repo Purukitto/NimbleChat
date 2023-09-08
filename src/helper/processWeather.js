@@ -1,3 +1,14 @@
+/**
+ * @description -processes weather data from OpenWeatherMap API
+ *
+ * @param {string} location -location to get weather for
+ * @param {string} action -action to perform
+ * @returns {object} -object containing weather data
+ *
+ * @example
+ * processWeather("New York", "weather") // { type: "weather", ... }
+ */
+
 export default async function processWeather(location, action) {
 	const BASE_URL = "https://api.openweathermap.org";
 

@@ -1,3 +1,14 @@
+/**
+ * @description -returns health concern and color for aqiValue
+ *
+ * @param {number} aqiValue	-AQI value
+ * @returns {object} healthConcern and color
+ *
+ * @example
+ * getAQIInfo(0) // { healthConcern: "Good", color: "#00C564" }
+ * getAQIInfo(100) // { healthConcern: "Satisfactory", color: "#8DDF5F" }
+ */
+
 export default function getAQIInfo(aqiValue) {
 	// AQI Info from https://en.wikipedia.org/wiki/Air_quality_index#India
 	if (aqiValue >= 0 && aqiValue <= 50) {

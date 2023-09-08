@@ -1,3 +1,15 @@
+/**
+ * @description -function to handle user input and call NBox API
+ *
+ * @param {string} input -user input
+ * @param {array} messages -array of messages
+ * @param {function} messageCallback -callback function to update message
+ * @returns {void}
+ *
+ * @example
+ * nbxCall("Hello", [{ role: "user", content: "Hello" }], (message) => console.log(message)) // "Hello, how are you?"
+ */
+
 import trimContextMessages from "./trimContextMessages";
 
 export default async function nbxCall(input, messages, messageCallback) {

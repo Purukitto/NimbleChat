@@ -1,3 +1,14 @@
+/**
+ * @description -returns the name of the day of the week
+ *
+ * @param {number} day	-day of the week
+ * @returns {string} day name
+ *
+ * @example
+ * dayName(0) // Sunday
+ * dayName(1) // Monday
+ */
+
 export default function dayName(day) {
 	switch (day) {
 		case 0:
