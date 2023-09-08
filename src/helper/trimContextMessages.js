@@ -1,10 +1,14 @@
-import tokenizer from "gpt-tokenizer";
+import llamaTokenizer from "llama-tokenizer-js";
+
+const MAX_TOKENS = 4096 - 500; // Subtract 500 for new tokens
 
 export default function trimContextMessages(messages) {
-	const tokenLimit = 2048 - 143; // Max tokens allowed by NBox AI //TODO: Confirmation needed
-	// System prompt is 114 tokens, calculated at https://platform.openai.com/tokenizer
+	// 175 is the approx length of the system prompt to ensure space for system prompt
+	const tokenLimit = MAX_TOKENS - 180;
 
-	const totalTokens = tokenizer.encodeChat(messages, "gpt-3.5-turbo").length;
+	let totalTokens = llamaTokenizer.encode(
+		JSON.stringify(messages, null, 2)
+	).length;
 
 	// Check if the chat is within the token limit
 	if (totalTokens <= tokenLimit) {
@@ -15,10 +19,9 @@ export default function trimContextMessages(messages) {
 	// If it's over the limit, trim messages
 	while (totalTokens > tokenLimit) {
 		const removedMessage = messages.shift(); // Remove the oldest message
-		const removedTokens = tokenizer.encodeChat(
-			[removedMessage],
-			"gpt-3.5-turbo"
-		)[0].length;
+		const removedTokens = llamaTokenizer.encode(
+			JSON.stringify(removedMessage)
+		).length;
 		totalTokens -= removedTokens;
 	}
 

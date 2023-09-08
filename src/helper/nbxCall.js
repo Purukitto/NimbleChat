@@ -14,8 +14,6 @@ export default async function nbxCall(input, messages, messageCallback) {
 		content: systemPrompt,
 	});
 
-	console.log(messageArray);
-
 	// API call to NBox AI
 	const response = await fetch(
 		"https://nocors-proxy-d63b3f09ff4c.herokuapp.com/https://chat.nbox.ai/api/chat/completions",
@@ -30,7 +28,7 @@ export default async function nbxCall(input, messages, messageCallback) {
 				messages: messageArray,
 				model: "llama-2-chat-13b-4k",
 				stream: true,
-				max_tokens: 1000,
+				max_tokens: 500,
 			}),
 		}
 	);
@@ -63,9 +61,9 @@ export default async function nbxCall(input, messages, messageCallback) {
 						messageCallback(message);
 					}
 				} catch (error) {
-					// TODO: Handle this error
+					// TODO: IF ERROR HANDLE ERROR IN FRONT
 					console.log(
-						`Error with JSON.parse and ${payload}.\n${error}`
+						`Error with JSON.parse.\nPayload: ${payload} \n${error}`
 					);
 				}
 			}
