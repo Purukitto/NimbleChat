@@ -7,7 +7,7 @@ import { Dna, LineWave } from "react-loader-spinner";
 // Components
 import Message from "./Message";
 
-export default function Chat() {
+export default function ChatStream() {
 	// Redux
 	const chat = useSelector((state) => state.chat);
 	const user = useSelector((state) => state.user);

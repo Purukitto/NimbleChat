@@ -8,7 +8,7 @@ import { Dna } from "react-loader-spinner";
 
 // Components
 import ChatInput from "./ChatInput";
-import Chat from "./Chat";
+import ChatStream from "./ChatStream";
 
 export default function ChatScreen() {
 	let navigate = useNavigate();
@@ -52,7 +52,7 @@ export default function ChatScreen() {
 							<button onClick={handleLogout}>Logout</button>
 						</div>
 					</div>
-					<Chat />
+					<ChatStream />
 					<ChatInput />
 				</div>
 			) : (
