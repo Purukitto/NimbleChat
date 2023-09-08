@@ -65,7 +65,7 @@ export default function ChatInput() {
 					await dispatch(
 						sendMessage({
 							message:
-								"Sorry, I couldn't find that location. Please try again with another location.",
+								"Sorry, I couldn't find that location. Please try again with another location.\n\n Here are some examples on how you can give me the said information correctly:\n\n- Weather in Bengaluru\n- Forecast for Noida\n- AQI of New Delhi\n\nYou must use the city name and not the state/country name.",
 							user: botUser,
 						})
 					);
