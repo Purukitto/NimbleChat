@@ -1,5 +1,4 @@
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	sendMessage,
@@ -17,8 +16,6 @@ import processWeather from "../helper/processWeather";
 import processMessagesToContext from "../helper/processMessagesToContext";
 
 export default function ChatInput() {
-	// const [promt, setPromt] = useState("");
-
 	// Redux
 	const user = useSelector((state) => state.user);
 	const chat = useSelector((state) => state.chat);
