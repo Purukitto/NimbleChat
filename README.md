@@ -15,3 +15,8 @@
 I'm constantly learning and improving, so if there's something specific you'd like to know or a feature you'd like to see, feel free to let me know and I'll do my best to help! 😊
 
 ### How It Works
+
+* User input is processed using a combination of regular expressions and fuzzy string matching to determine the user's intent and a location
+* If it is a weather realted request and location is a valid city, the bot will use the OpenWeather API to retrieve weather data for that city
+* If the intent is not weather-related, the request is sent to NBox API to retrieve a response (llama2 model)
+* The response is then sent to the database to be stored and used for future requests
