@@ -83,14 +83,14 @@ export default function ChatStream() {
 										<div
 											className="infoText"
 											onClick={handleCopyPrompt(
-												"Who are you? What can you help me with?"
+												"Can you tell me something about tornadoes?"
 											)}
 										>
 											<p className="text-white font-bold">
-												Who are you?
+												Can you tell me something
 											</p>
 											<p className="text-textSecondary">
-												What can you help me with?
+												about tornadoes?
 											</p>
 										</div>
 										<div
