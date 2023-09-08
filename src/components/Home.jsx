@@ -8,7 +8,6 @@ export default function Home() {
 			provider: "github",
 			options: {
 				redirectTo: "https://jazzy-pavlova-932105.netlify.app/chat", // this is the url of the deployed app
-				// redirectTo: "http://127.0.0.1:5173/chat", // this is the url of localhost for testing
 			},
 		});
 	};
