@@ -20,7 +20,7 @@ export default function Home() {
 
 	return (
 		<div className="flex flex-col md:flex-row h-screen text-white bg-darkBackground">
-			<div className="flex-1 bg-botBackground p-5 max-w-4xl">
+			<div className="flex-1 bg-botBackground p-8 max-w-4xl">
 				<div className="flex items-center space-x-2">
 					<img
 						src="https://cdn-icons-png.flaticon.com/512/9231/9231625.png"
