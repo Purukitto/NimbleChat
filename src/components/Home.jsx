@@ -1,6 +1,7 @@
 import supabase from "../helper/supabase";
-import { CloudIcon } from "@heroicons/react/24/solid";
+import { ChevronDoubleDownIcon } from "@heroicons/react/24/solid";
 import toast from "react-hot-toast";
+import TypewriterComponent from "typewriter-effect";
 
 export default function Home() {
 	const handleLogin = async () => {
@@ -18,46 +19,38 @@ export default function Home() {
 	};
 
 	return (
-		<div className="flex flex-col items-center justify-center h-screen px-2 text-white">
-			<img
-				src="https://cdn-icons-png.flaticon.com/512/9231/9231625.png"
-				className="h-20 w-20"
-			/>
-			<h1 className="text-4xl font-bold mb-20">Nimble Chat</h1>
-			<div className="text-center">
-				<div className="flex flex-col items-center justify-center mb-5">
-					<CloudIcon className=" h-7 w-7" />
-					<h2 className="font-semibold text-lg">Example Prompts</h2>
-					<p>Click on a prompt to copy it to your clipboard! 📋</p>
+		<div className="flex flex-col md:flex-row h-screen text-white bg-darkBackground">
+			<div className="flex-1 bg-botBackground p-5 max-w-4xl">
+				<div className="flex items-center space-x-2">
+					<img
+						src="https://cdn-icons-png.flaticon.com/512/9231/9231625.png"
+						className="h-6 w-6"
+					/>
+					<h1 className="text-xl font-semibold">Nimble Chat</h1>
 				</div>
-				<div className="space-y-2">
-					<p
-						className="infoText"
-						onClick={handleCopy(
-							"Who are you? How can you help me?"
-						)}
-					>
-						Who are you? How can you help me?
-					</p>
-					<p
-						className="infoText"
-						onClick={handleCopy(
-							"What is the weather like in Bengaluru?"
-						)}
-					>
-						What is the weather like in Bengaluru?
-					</p>
-					<p
-						className="infoText"
-						onClick={handleCopy(
-							"Give me the forecast for Bengaluru."
-						)}
-					>
-						Give me the forecast for Bengaluru.
-					</p>
+				<div className="flex h-full items-center">
+					<TypewriterComponent
+						options={{
+							strings: [
+								"What is the AQI of Bengaluru?",
+								"Give me the forecast for Noida!",
+								"Tell me about the weather in New Delhi!",
+								"Can you tell me something about tornadoes?",
+								"When is a good time to visit Goa?",
+							],
+							autoStart: true,
+							loop: true,
+							cursorClassName: "text-3xl",
+							wrapperClassName: "text-3xl font-semibold",
+						}}
+					/>
 				</div>
 			</div>
-			<div className=" mt-24">
+			<div className="m-auto px-12 py-24 space-y-4">
+				<p className="text-center text-3xl font-semibold">
+					Start asking
+				</p>
+				<ChevronDoubleDownIcon className="m-auto h-8 w-8" />
 				<button
 					onClick={handleLogin}
 					className="py-2 px-4 flex justify-center items-center bg-gray-600 hover:bg-gray-700 w-full font-semibold shadow-md rounded-lg"
