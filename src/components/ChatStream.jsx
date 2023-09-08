@@ -131,7 +131,7 @@ export default function ChatStream() {
 												What is the AQI
 											</p>
 											<p className="text-textSecondary">
-												of Bengaluru
+												of Bengaluru?
 											</p>
 										</div>
 									</div>
