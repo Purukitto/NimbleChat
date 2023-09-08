@@ -1,3 +1,10 @@
+/*
+ * Home page component
+ *
+ * - Renders the home page
+ * - Handles login
+ */
+
 import supabase from "../helper/supabase";
 import { ChevronDoubleDownIcon } from "@heroicons/react/24/solid";
 import toast from "react-hot-toast";
@@ -11,11 +18,6 @@ export default function Home() {
 				redirectTo: "https://jazzy-pavlova-932105.netlify.app/chat", // this is the url of the deployed app
 			},
 		});
-	};
-
-	const handleCopy = (text) => async () => {
-		await navigator.clipboard.writeText(text);
-		toast("Prompt copied to clipboard! 📋");
 	};
 
 	return (

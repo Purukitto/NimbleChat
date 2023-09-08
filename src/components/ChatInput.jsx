@@ -1,3 +1,13 @@
+/*
+ * Input component for chat screen
+ *
+ * - Input field for user to type messages
+ * - Send button to send messages
+ * - Parses user input to check if it is a weather request
+ * - Sends user input to NBX API if not a weather request
+ * - Sends weather request to OpenWeather API if it is a weather request
+ */
+
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import { useDispatch, useSelector } from "react-redux";
 import {

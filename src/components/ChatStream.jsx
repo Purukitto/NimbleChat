@@ -1,3 +1,12 @@
+/*
+ * ChatStream component
+ *
+ * - Renders the chat stream
+ * - Scrolls to bottom on new message
+ * - Fetches chat if user is logged in
+ * - Shows loading animation if message is loading
+ */
+
 import { useEffect, useRef } from "react";
 import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";

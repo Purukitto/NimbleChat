@@ -1,3 +1,12 @@
+/*
+ * Main chat screen component.
+ *
+ * - Fetching user data from Supabase
+ * - Logging out the user
+ * - Rendering the chat stream
+ * - Rendering the chat input
+ */
+
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";

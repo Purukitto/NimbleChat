@@ -1,3 +1,10 @@
+/*
+ * Weather Card component
+ *
+ * - Checks if weather card is for weather, forecast or AQI
+ * - Renders accordingly
+ */
+
 import dayjs from "dayjs";
 import dayName from "../helper/dayName";
 import { MapPinIcon } from "@heroicons/react/24/solid";
