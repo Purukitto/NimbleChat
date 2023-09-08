@@ -37,7 +37,6 @@ export const fetchChat = createAsyncThunk("chat/fetchChat", async (chatID) => {
 		.from("chatstream")
 		.select("*")
 		.eq("chat_id", chatID)
-		.limit(50) // limit to 50 messages
 		.order("id", { ascending: true });
 
 	if (error) throw new Error(error);
