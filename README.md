@@ -16,7 +16,7 @@ I'm constantly learning and improving, so if there's something specific you'd li
 
 ### How To Use
 
--   Go to [NBX Weather](https://jazzy-pavlova-932105.netlify.app/) and click on "Login with Github" to sign in
+-   Go to [Nimble Chat Webapp](https://jazzy-pavlova-932105.netlify.app/) and click on "Login with Github" to sign in
 -   Type in your request in the chat box and press enter
 -   If you want to know the weather in a specific city, type in "What is the weather in {city name}?"
 -   If you want to know the forecast for a specific city, type in "What is the forecast for {city name}?"
