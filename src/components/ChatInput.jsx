@@ -156,11 +156,19 @@ export default function ChatInput() {
 									message: lastValidResponse,
 								})
 							);
-							dispatch(stopThinking()); // Toggle thinking animation
 						} else {
+							await dispatch(
+								updateMessage({
+									id: payload.id,
+									message:
+										"Sorry, I couldn't understand that. Please try again.",
+								})
+							);
+
 							// Handle the case where there is no valid response yet
 							console.error("No valid response available.");
 						}
+						dispatch(stopThinking()); // Toggle thinking animation
 					}
 				}
 			);
