@@ -154,7 +154,7 @@ export default function ChatInput() {
 				>
 					{chat.thinking ? (
 						<ThreeDots
-							height="20"
+							height="24"
 							width="30"
 							radius="3"
 							color="#c4d7ff"
