@@ -51,3 +51,19 @@ I'm constantly learning and improving, so if there's something specific you'd li
 -   The project is using a self-hosted CORS proxy to make requests to the NBox API. This is because the API does not have CORS enabled. This is not ideal, but it is the only way to make requests to the API from the browser. The proxy is hosted on Heroku.
 
 ### Self Hosting Instructions
+
+-   Clone the repository to your local machine using `git clone https://github.com/Purukitto/NimbleChat`
+-   Run `yarn` command to install all dependencies
+-   Create a `.env` file in the root directory and add the following environment variables:
+
+```js
+VITE_CORSPROXY_URL; // URL of the CORS proxy
+VITE_NBX_KEY; // NBox API key
+VITE_OPENWEATHERMAP_KEY; // OpenWeather API key
+VITE_SUPABASE_KEY; // Supabase API key
+VITE_SUPABASE_URL; // Supabase API URL
+```
+
+-   Run `yarn dev` to start the development server
+-   Run `yarn build` to build the project
+-   Run `yarn serve` to serve the project
