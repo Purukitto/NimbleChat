@@ -67,3 +67,7 @@ VITE_SUPABASE_URL; // Supabase API URL
 -   Run `yarn dev` to start the development server
 -   Run `yarn build` to build the project
 -   Run `yarn serve` to serve the project
+
+### License
+
+This project is licensed under the GLP 3.0 License - see the [LICENSE](LICENSE) file for details.
