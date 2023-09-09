@@ -2,6 +2,7 @@
  * Main chat screen component.
  *
  * - Fetching user data from Supabase
+ * - Fetching user location from browser
  * - Logging out the user
  * - Rendering the chat stream
  * - Rendering the chat input
