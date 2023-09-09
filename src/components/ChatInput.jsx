@@ -142,7 +142,7 @@ export default function ChatInput() {
 				<input
 					type="text"
 					placeholder="Type a message"
-					disabled={chat.loading || chat.thinking}
+					disabled={chat.loading}
 					value={chat.prompt}
 					onChange={(e) => dispatch(setPrompt(e.target.value))}
 					className="flex-1 bg-transparent focus:outline-none"
