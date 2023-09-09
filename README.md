@@ -1,6 +1,6 @@
 # Nimble Chat <img src="https://cdn-icons-png.flaticon.com/512/9231/9231625.png" alt="hydrogen animated logo" height="50px" align="right" />
 
-<div align="center"> <img src="https://i.imgur.com/EszdxIs.gif" alt="Home Screen" height="300px"> </div>
+<div align="center"> <img src="https://i.imgur.com/EszdxIs.gif" alt="Home Screen" style="max-height:300px"> </div>
 
 </br></br>
 👋 Meet NBX Weather, your friendly chatbot for all things weather-related. It is here to help you stay up-to-date with the latest weather forecasts, air quality information, and more! 🌞🌫️
