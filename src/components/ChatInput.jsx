@@ -193,6 +193,7 @@ export default function ChatInput() {
 			>
 				<input
 					type="text"
+					id="chatInput"
 					placeholder="Type a message"
 					disabled={chat.loading}
 					value={chat.prompt}

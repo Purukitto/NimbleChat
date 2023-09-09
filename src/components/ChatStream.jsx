@@ -40,12 +40,16 @@ export default function ChatStream() {
 		if (user.data.user_metadata) dispatch(fetchChat(user.data.id));
 	}, [user.data]);
 
-	const handleCopyPrompt = (newPrompt) => () => {
+	const handleCopyPrompt = (newPrompt) => async () => {
 		// Copy prompt to clipboard
 		navigator.clipboard.writeText(newPrompt);
 		toast("Prompt copied to clipboard! 📋");
 		// Set prompt in redux
-		dispatch(setPrompt(newPrompt));
+		await dispatch(setPrompt(newPrompt));
+
+		const inputElement = document.getElementById("chatInput");
+		inputElement.focus();
+		inputElement.setSelectionRange(newPrompt.length, newPrompt.length);
 	};
 
 	return (
