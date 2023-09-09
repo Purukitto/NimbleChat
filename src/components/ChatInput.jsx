@@ -149,7 +149,7 @@ export default function ChatInput() {
 						dispatch(update({ payload, response }));
 						lastValidResponse = response; // Update lastValidResponse with the current response
 					} else {
-						if (lastValidResponse !== null) {
+						if (lastValidResponse) {
 							await dispatch(
 								updateMessage({
 									id: payload.id,
@@ -157,6 +157,16 @@ export default function ChatInput() {
 								})
 							);
 						} else {
+							console.log(payload);
+							await dispatch(
+								update({
+									payload,
+									response:
+										"Sorry, I couldn't understand that. Please try again.",
+								})
+							);
+
+							// Send the update to the database
 							await dispatch(
 								updateMessage({
 									id: payload.id,

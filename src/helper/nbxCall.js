@@ -61,40 +61,45 @@ export default async function nbxCall(input, messages, messageCallback) {
 		}
 	);
 
-	const rs = response.body; // This is a ReadableStream
-	const reader = rs.getReader();
-	const decoder = new TextDecoder("utf-8");
-	let message = ""; // message to be displayed
+	if (response.ok) {
+		const rs = response.body; // This is a ReadableStream
+		const reader = rs.getReader();
+		const decoder = new TextDecoder("utf-8");
+		let message = ""; // message to be displayed
 
-	while (true) {
-		const { value, done } = await reader.read();
+		while (true) {
+			const { value, done } = await reader.read();
 
-		if (done) break; // if done, break out of loop
+			if (done) break; // if done, break out of loop
 
-		const chunk = decoder.decode(value, { stream: true });
-		const payloads = chunk.toString().split("\n\n"); // split the decoded chunks by new line
-		for (const payload of payloads) {
-			if (payload.includes("[DONE]")) {
-				// if the payload includes [DONE], break out of loop
-				messageCallback(false);
-				break;
-			}
-			if (payload.startsWith("data:")) {
-				// remove 'data: ' and parse the corresponding object
-				const data = JSON.parse(payload.replace("data: ", ""));
-				try {
-					const text = data.choices[0].delta?.content;
-					if (text) {
-						message += text;
-						messageCallback(message);
-					}
-				} catch (error) {
+			const chunk = decoder.decode(value, { stream: true });
+			const payloads = chunk.toString().split("\n\n"); // split the decoded chunks by new line
+			for (const payload of payloads) {
+				if (payload.includes("[DONE]")) {
+					// if the payload includes [DONE], break out of loop
 					messageCallback(false);
-					console.log(
-						`Error with JSON.parse.\nPayload: ${payload} \n${error}`
-					);
+					break;
+				}
+				if (payload.startsWith("data:")) {
+					// remove 'data: ' and parse the corresponding object
+					const data = JSON.parse(payload.replace("data: ", ""));
+					try {
+						const text = data.choices[0].delta?.content;
+						if (text) {
+							message += text;
+							messageCallback(message);
+						}
+					} catch (error) {
+						messageCallback(false);
+						console.log(
+							`Error with JSON.parse.\nPayload: ${payload} \n${error}`
+						);
+					}
 				}
 			}
 		}
+	} else {
+		messageCallback(false);
+		console.log(`Error with fetch.\n${response}`);
 	}
 }
