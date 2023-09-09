@@ -11,7 +11,7 @@
 export default function parseInput(input) {
 	// Check if the input contains any weather-related keywords
 	const keywordPattern =
-		/(weather|forecast|temperature|rain|snow|aqi|air quality)/i;
+		/(weather forecast|weather|forecast|temperature|rain|snow|aqi|air quality)/i;
 
 	const intentMatch = input.match(keywordPattern);
 
@@ -22,7 +22,7 @@ export default function parseInput(input) {
 		const action =
 			intent === "aqi" || intent === "air quality"
 				? "aqi"
-				: intent === "forecast"
+				: intent.includes("forecast")
 				? "forecast"
 				: "weather";
 		if (locationMatch && locationMatch[1]) {
