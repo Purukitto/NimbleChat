@@ -89,7 +89,7 @@ export default async function nbxCall(input, messages, messageCallback) {
 						messageCallback(message);
 					}
 				} catch (error) {
-					// TODO: IF ERROR HANDLE ERROR IN FRONT
+					messageCallback(false);
 					console.log(
 						`Error with JSON.parse.\nPayload: ${payload} \n${error}`
 					);
