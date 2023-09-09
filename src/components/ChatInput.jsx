@@ -30,6 +30,7 @@ export default function ChatInput() {
 	// Redux
 	const user = useSelector((state) => state.user);
 	const chat = useSelector((state) => state.chat);
+	const geoLocation = useSelector((state) => state.geolocation);
 	const dispatch = useDispatch();
 
 	const handleSendMessage = async (e) => {
@@ -81,21 +82,52 @@ export default function ChatInput() {
 						})
 					);
 			} else {
-				const locationPrompt =
-					action === "weather"
-						? "in <location>"
-						: action === "forecast"
-						? "for <location>"
-						: "of <location>";
-				// If user input is a weather request but location is not found, send error message
-				await dispatch(
-					sendMessage({
-						message: `It seems like you wanted to know about the ${
-							action === "aqi" ? "AQI" : action
-						} but didn't specify a location.😅\nPlease try again with a location.\n\nAppend '${locationPrompt}' at the end of your last message and you would be good to go!`,
-						user: botUser,
-					})
-				);
+				if (
+					geoLocation &&
+					geoLocation.longitude &&
+					geoLocation.latitude
+				) {
+					const processedWeather = await processWeather(
+						{
+							lat: geoLocation.latitude,
+							lon: geoLocation.longitude,
+						},
+						action
+					);
+					if (processedWeather)
+						// If weather data is found, send it to the user
+						await dispatch(
+							sendMessage({
+								message: { weatherData: processedWeather },
+								user: botUser,
+							})
+						);
+					// If weather data is not found, send error message
+					else
+						await dispatch(
+							sendMessage({
+								message:
+									"Sorry, I couldn't find that location. Please try again with another location.\n\n Here are some examples on how you can give me the said information correctly:\n\n- Weather in Bengaluru\n- Forecast for Noida\n- AQI of New Delhi\n\nYou must use the city name and not the state/country name.",
+								user: botUser,
+							})
+						);
+				} else {
+					const locationPrompt =
+						action === "weather"
+							? "in <location>"
+							: action === "forecast"
+							? "for <location>"
+							: "of <location>";
+					// If user input is a weather request but location is not found, send error message
+					await dispatch(
+						sendMessage({
+							message: `It seems like you wanted to know about the ${
+								action === "aqi" ? "AQI" : action
+							} but didn't specify a location.😅\nPlease try again with a location.\n\nAppend '${locationPrompt}' at the end of your last message and you would be good to go!`,
+							user: botUser,
+						})
+					);
+				}
 			}
 			dispatch(stopThinking()); // Toggle thinking animation
 		} else {

@@ -1,7 +1,7 @@
 /**
  * @description -processes weather data from OpenWeatherMap API
  *
- * @param {string} location -location to get weather for
+ * @param {string} locationInp -location to get weather for
  * @param {string} action -action to perform
  * @returns {object} -object containing weather data
  *
@@ -9,16 +9,23 @@
  * processWeather("New York", "weather") // { type: "weather", ... }
  */
 
-export default async function processWeather(location, action) {
+export default async function processWeather(locationInp, action) {
 	const BASE_URL = "https://api.openweathermap.org";
+	let locationData;
 
-	const locationData = await fetch(
-		`${BASE_URL}/geo/1.0/direct?q=${location}&limit=1&appid=${
-			import.meta.env.VITE_OPENWEATHERMAP_KEY
-		}`
-	).then((res) => res.json());
+	if (locationInp.lat && locationInp.lon) {
+		locationData = [locationInp];
+	} else {
+		locationData = await fetch(
+			`${BASE_URL}/geo/1.0/direct?q=${locationInp}&limit=1&appid=${
+				import.meta.env.VITE_OPENWEATHERMAP_KEY
+			}`
+		).then((res) => res.json());
 
-	if (locationData.length === 0) return null;
+		if (locationData.length === 0) return null;
+	}
+
+	console.log(locationData);
 
 	const WEATHER_URL = `${BASE_URL}/data/2.5`;
 

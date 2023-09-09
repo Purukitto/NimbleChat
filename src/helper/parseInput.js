@@ -26,7 +26,6 @@ export default function parseInput(input) {
 				? "forecast"
 				: "weather";
 		if (locationMatch && locationMatch[1]) {
-			// const location = locationMatch[1].trim();
 			return { weatherLocation: locationMatch[1].trim(), action };
 		} else return { weatherLocation: null, action };
 	}
