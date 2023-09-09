@@ -24,6 +24,7 @@ import nbxCall from "../helper/nbxCall";
 import parseInput from "../helper/parseInput";
 import processWeather from "../helper/processWeather";
 import processMessagesToContext from "../helper/processMessagesToContext";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function ChatInput() {
 	// Redux
@@ -96,6 +97,7 @@ export default function ChatInput() {
 					})
 				);
 			}
+			dispatch(stopThinking()); // Toggle thinking animation
 		} else {
 			// If user input is not a weather request, send it to NBX API
 			const { payload } = await dispatch(
@@ -114,12 +116,13 @@ export default function ChatInput() {
 						lastValidResponse = response; // Update lastValidResponse with the current response
 					} else {
 						if (lastValidResponse !== null) {
-							dispatch(
+							await dispatch(
 								updateMessage({
 									id: payload.id,
 									message: lastValidResponse,
 								})
 							);
+							dispatch(stopThinking()); // Toggle thinking animation
 						} else {
 							// Handle the case where there is no valid response yet
 							console.error("No valid response available.");
@@ -128,8 +131,6 @@ export default function ChatInput() {
 				}
 			);
 		}
-
-		dispatch(stopThinking()); // Toggle thinking animation
 	};
 
 	return (
@@ -141,17 +142,30 @@ export default function ChatInput() {
 				<input
 					type="text"
 					placeholder="Type a message"
-					disabled={chat.loading}
+					disabled={chat.loading || chat.thinking}
 					value={chat.prompt}
 					onChange={(e) => dispatch(setPrompt(e.target.value))}
 					className="flex-1 bg-transparent focus:outline-none"
 				/>
 				<button
-					disabled={!prompt || chat.loading}
+					disabled={!prompt || chat.loading || chat.thinking}
 					type="submit"
 					className="bg-green flex justify-center hover:opacity-70px-4 w-12 py-2 rounded disabled:bg-disabled disabled:cursor-not-allowed"
 				>
-					<PaperAirplaneIcon className="h-6 w-6 -rotate-45" />
+					{chat.thinking ? (
+						<ThreeDots
+							height="20"
+							width="30"
+							radius="3"
+							color="#c4d7ff"
+							ariaLabel="three-dots-loading"
+							wrapperStyle={{}}
+							wrapperClassName=""
+							visible={true}
+						/>
+					) : (
+						<PaperAirplaneIcon className="h-6 w-6 -rotate-45" />
+					)}
 				</button>
 			</form>
 		</div>

@@ -11,7 +11,7 @@ import { useEffect, useRef } from "react";
 import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchChat, setPrompt } from "../store/chatSlice";
-import { Dna, LineWave } from "react-loader-spinner";
+import { Dna } from "react-loader-spinner";
 import toast from "react-hot-toast";
 
 // Components
@@ -60,22 +60,6 @@ export default function ChatStream() {
 								<Message key={message.id} message={message} />
 							))}
 							<div ref={ref} className="h-3" />
-							{chat.thinking && (
-								<div className="flex flex-1 justify-center">
-									<LineWave
-										height="100"
-										width="100"
-										color="#4fa94d"
-										ariaLabel="line-wave"
-										wrapperStyle={{}}
-										wrapperClass=""
-										visible={true}
-										firstLineColor="c4d7ff"
-										middleLineColor="c4d7ff"
-										lastLineColor="c4d7ff"
-									/>
-								</div>
-							)}
 						</>
 					) : (
 						// If no messages exist
