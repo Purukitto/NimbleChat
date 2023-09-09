@@ -18,6 +18,7 @@ import { Dna } from "react-loader-spinner";
 // Components
 import ChatInput from "./ChatInput";
 import ChatStream from "./ChatStream";
+import { setError, setLocation } from "../store/geoLocationSlice";
 
 export default function ChatScreen() {
 	let navigate = useNavigate();
@@ -34,6 +35,27 @@ export default function ChatScreen() {
 			} // Show success toast if logged in successfully
 			else toast.success("Logged in successfully! 🎉");
 		});
+	}, []);
+
+	useEffect(() => {
+		if ("geolocation" in navigator) {
+			navigator.geolocation.getCurrentPosition(
+				(position) => {
+					dispatch(
+						setLocation({
+							latitude: position.coords.latitude,
+							longitude: position.coords.longitude,
+						})
+					);
+					toast.success("Location loaded! 🌏");
+				},
+				(error) => {
+					dispatch(setError(`Error: ${error.message}`));
+				}
+			);
+		} else {
+			dispatch(setError("Geolocation is not available in your browser."));
+		}
 	}, []);
 
 	const handleLogout = () => {
