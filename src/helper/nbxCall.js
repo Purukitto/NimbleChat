@@ -7,7 +7,7 @@
  * @returns {void}
  *
  * @example
- * nbxCall("Hello", [{ role: "user", content: "Hello" }], (message) => console.log(message)) // "Hello, how are you?"
+ * nbxCall("Hello", [{ role: "user", content: "Previous message" }], (message) => console.log(message)) // "Hello, how are you?"
  */
 
 import trimContextMessages from "./trimContextMessages";
@@ -28,7 +28,9 @@ export default async function nbxCall(input, messages, messageCallback) {
 
 	// API call to NBox AI
 	const response = await fetch(
-		"https://nocors-proxy-d63b3f09ff4c.herokuapp.com/https://chat.nbox.ai/api/chat/completions",
+		`${
+			import.meta.env.VITE_CORSPROXY_URL
+		}/https://chat.nbox.ai/api/chat/completions`,
 		{
 			method: "POST",
 			headers: {
