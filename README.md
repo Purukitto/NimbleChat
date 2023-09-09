@@ -26,10 +26,24 @@ I'm constantly learning and improving, so if there's something specific you'd li
 #### Examples
 
 -   `What is the weather in Delhi?`
+
+    <img src="https://i.ibb.co/5B534dp/Screenshot-2023-09-09-at-7-40-55-PM.png" alt="Delhi Weather" style="max-width:400px">
+
 -   `What is the forecast for New Delhi?`
+
+    <img src="https://i.ibb.co/vV7Fd39/Screenshot-2023-09-09-at-7-41-10-PM.png" alt="New Delhi Forecast" style="max-width:400px">
+
 -   `What is the air quality in Noida?`
+
+    <img src="https://i.ibb.co/hMMfF75/Screenshot-2023-09-09-at-7-41-19-PM.png" alt="Noida AQI" style="max-width:400px">
+
 -   `What is the weather here?`
+
+    <img src="https://i.ibb.co/dpK6YXk/Screenshot-2023-09-09-at-7-41-29-PM.png" alt="Current weather" style="max-width:400px">
+
 -   `What is the air quality here?`
+
+    <img src="https://i.ibb.co/nR8CYK3/Screenshot-2023-09-09-at-7-41-42-PM.png" alt="Current AQI" style="max-width:400px">
 
 ### How It Works
 
