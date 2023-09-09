@@ -83,6 +83,8 @@ export default function ChatInput() {
 					);
 			} else {
 				if (
+					(lowerInput.includes("current") ||
+						lowerInput.includes("here")) &&
 					geoLocation &&
 					geoLocation.longitude &&
 					geoLocation.latitude
