@@ -37,7 +37,8 @@ export const fetchChat = createAsyncThunk("chat/fetchChat", async (chatID) => {
 		.from("chatstream")
 		.select("*")
 		.eq("chat_id", chatID)
-		.order("id", { ascending: true });
+		.order("id", { ascending: false })
+		.limit(50); //Limit to avoid fetching too many messages
 
 	if (error) throw new Error(error);
 	else return data;
@@ -120,7 +121,7 @@ export const chatSlice = createSlice({
 
 		builder.addCase(fetchChat.fulfilled, (state, action) => {
 			state.loading = false;
-			state.messages = [...action.payload];
+			state.messages = [...action.payload.reverse()];
 		});
 
 		builder.addCase(fetchChat.rejected, (state, action) => {
