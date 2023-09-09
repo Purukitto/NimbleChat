@@ -1,6 +1,6 @@
 /**
  * @description -trims messages to ensure that the total number of tokens is within the limit
- * 
+ *
  * @param {array} messages	-array of messages
  * @returns {array} -array of messages
  */
@@ -10,8 +10,8 @@ import llamaTokenizer from "llama-tokenizer-js";
 const MAX_TOKENS = 4096 - 500; // Subtract 500 for new tokens
 
 export default function trimContextMessages(messages) {
-	// 175 is the approx length of the system prompt to ensure space for system prompt
-	const tokenLimit = MAX_TOKENS - 180;
+	// 390 is the approx length of the system prompt to ensure space for system prompt
+	const tokenLimit = MAX_TOKENS - 395;
 
 	let totalTokens = llamaTokenizer.encode(
 		JSON.stringify(messages, null, 2)
