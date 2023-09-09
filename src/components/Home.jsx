@@ -7,7 +7,6 @@
 
 import supabase from "../helper/supabase";
 import { ChevronDoubleDownIcon } from "@heroicons/react/24/solid";
-import toast from "react-hot-toast";
 import TypewriterComponent from "typewriter-effect";
 import MadeWithLove from "./MadeWithLove";
 
